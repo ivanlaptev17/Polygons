@@ -56,11 +56,9 @@ namespace Polygon
         public Square(int x, int y) : base(x, y) { }
 
         public override void Draw(Graphics G) {
-
         }
 
-        public override bool IsInside(int x, int y)
-        {
+        public override bool IsInside(int x, int y) {
             return false;
         }
     }

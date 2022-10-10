@@ -8,3 +8,13 @@ C:\Users\laptev.ivan\Source\Repos\repos\Polygon\Polygon\bin\Debug\Polygon.exe
 C:\Users\laptev.ivan\Source\Repos\repos\Polygon\Polygon\bin\Debug\Polygon.pdb
 C:\Users\laptev.ivan\Source\Repos\repos\Polygon\Polygon\obj\Debug\Polygon.exe
 C:\Users\laptev.ivan\Source\Repos\repos\Polygon\Polygon\obj\Debug\Polygon.pdb
+C:\Users\chels\Desktop\repos\Polygon\bin\Debug\Polygon.exe.config
+C:\Users\chels\Desktop\repos\Polygon\bin\Debug\Polygon.exe
+C:\Users\chels\Desktop\repos\Polygon\bin\Debug\Polygon.pdb
+C:\Users\chels\Desktop\repos\Polygon\obj\Debug\Polygon.csproj.AssemblyReference.cache
+C:\Users\chels\Desktop\repos\Polygon\obj\Debug\Polygon.Form1.resources
+C:\Users\chels\Desktop\repos\Polygon\obj\Debug\Polygon.Properties.Resources.resources
+C:\Users\chels\Desktop\repos\Polygon\obj\Debug\Polygon.csproj.GenerateResource.cache
+C:\Users\chels\Desktop\repos\Polygon\obj\Debug\Polygon.csproj.CoreCompileInputs.cache
+C:\Users\chels\Desktop\repos\Polygon\obj\Debug\Polygon.exe
+C:\Users\chels\Desktop\repos\Polygon\obj\Debug\Polygon.pdb
