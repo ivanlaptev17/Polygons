@@ -14,6 +14,8 @@ namespace Polygon
     {
         List<Shape> shapes = new List<Shape> { };
         bool flag = false;
+        Circle circle = new Circle(50, 50);
+        Square square = new Square(150, 150);
         
         public Form1()
         {
@@ -22,12 +24,13 @@ namespace Polygon
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
-            Circle circle = new Circle(e.X, e.Y);
+            Refresh();
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.FillEllipse(new SolidBrush(Color.Black), 100, 100, 60, 60);
+            circle.Draw(e.Graphics);
+            square.Draw(e.Graphics);
         }
     }
 }

@@ -7,17 +7,20 @@ using System.Drawing;
 
 namespace Polygon
 {
-    abstract class Shape {
+    abstract class Shape 
+    {
         protected static int R;
         protected static Color C;
         protected int x, y;
 
-        static Shape() {
+        static Shape() 
+        {
             C = Color.Blue;
-            R = 10;
+            R = 20;
         }
 
-        public Shape(int x, int y) {
+        public Shape(int x, int y) 
+        {
             this.x = x;
             this.y = y;
         }
@@ -27,15 +30,18 @@ namespace Polygon
         public abstract bool IsInside(int x, int y);
     }
 
-    class Circle : Shape {
+    class Circle : Shape 
+    {
         public Circle(int x, int y) : base(x, y) { }
         
-        public override void Draw(Graphics G) {
-            Brush brush = new SolidBrush(C);
+        public override void Draw(Graphics G)
+        {
+            SolidBrush brush = new SolidBrush(C);
             G.FillEllipse(brush, x - R, y + R, x + 2 * R, y + 2 * R);
         }
 
-        public override bool IsInside(int x, int y) { 
+        public override bool IsInside(int x, int y) 
+        { 
             return Math.Sqrt((this.x - x) * (this.x - x)) + Math.Sqrt((this.y - y) * this.y - y) < R;
         }
     }
@@ -44,21 +50,29 @@ namespace Polygon
     {
         public Triangle(int x, int y) : base(x, y) { }
 
-        public override void Draw(Graphics G) {
-            Brush brush = new SolidBrush(C);
+        public override void Draw(Graphics G)
+        {
+            SolidBrush brush = new SolidBrush(C);
         }
 
-        public override bool IsInside(int x, int y) { return false; } // TODO: т. Герона
+        public override bool IsInside(int x, int y)
+        {
+            return false;
+        }
     }
 
     class Square : Shape
     {
         public Square(int x, int y) : base(x, y) { }
 
-        public override void Draw(Graphics G) {
+        public override void Draw(Graphics G)
+        {
+            SolidBrush brush = new SolidBrush(C);
+            G.FillRectangle(brush, x, y,  2 * R, 2 * R);
         }
 
-        public override bool IsInside(int x, int y) {
+        public override bool IsInside(int x, int y)
+        {
             return false;
         }
     }
