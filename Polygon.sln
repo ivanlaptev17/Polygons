@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polygon", "Polygon\Polygon.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Солнечная система", "Солнечная система\Солнечная система.csproj", "{013947A6-209D-492B-B7EA-637710DC0ADF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ButtonsInRealTime", "ButtonsInRealTime\ButtonsInRealTime.csproj", "{5B565A22-D0DD-4C98-8609-30F9F19F686C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{013947A6-209D-492B-B7EA-637710DC0ADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{013947A6-209D-492B-B7EA-637710DC0ADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{013947A6-209D-492B-B7EA-637710DC0ADF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B565A22-D0DD-4C98-8609-30F9F19F686C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B565A22-D0DD-4C98-8609-30F9F19F686C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B565A22-D0DD-4C98-8609-30F9F19F686C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B565A22-D0DD-4C98-8609-30F9F19F686C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

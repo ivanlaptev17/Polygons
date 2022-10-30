@@ -67,7 +67,7 @@ namespace Солнечная_система
             this.солнце.Name = "солнце";
             this.солнце.Size = new System.Drawing.Size(180, 22);
             this.солнце.Text = "Солнце";
-            this.солнце.CheckedChanged += new System.EventHandler(this.солнце_CheckedChanged);
+            this.солнце.CheckedChanged += new System.EventHandler(this.planet_CheckedChanged);
             // 
             // луна
             // 
@@ -75,7 +75,7 @@ namespace Солнечная_система
             this.луна.Name = "луна";
             this.луна.Size = new System.Drawing.Size(180, 22);
             this.луна.Text = "Луна";
-            this.луна.CheckedChanged += new System.EventHandler(this.луна_CheckedChanged);
+            this.луна.CheckedChanged += new System.EventHandler(this.planet_CheckedChanged);
             // 
             // сатурн
             // 
@@ -83,7 +83,7 @@ namespace Солнечная_система
             this.сатурн.Name = "сатурн";
             this.сатурн.Size = new System.Drawing.Size(180, 22);
             this.сатурн.Text = "Сатурн";
-            this.сатурн.CheckedChanged += new System.EventHandler(this.сатурн_CheckedChanged);
+            this.сатурн.CheckedChanged += new System.EventHandler(this.planet_CheckedChanged);
             // 
             // комета
             // 
@@ -91,7 +91,7 @@ namespace Солнечная_система
             this.комета.Name = "комета";
             this.комета.Size = new System.Drawing.Size(180, 22);
             this.комета.Text = "Комета";
-            this.комета.CheckedChanged += new System.EventHandler(this.комета_CheckedChanged);
+            this.комета.CheckedChanged += new System.EventHandler(this.planet_CheckedChanged);
             // 
             // pnl
             // 

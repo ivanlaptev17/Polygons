@@ -5,22 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace Солнечная_система
-{
-    abstract class Astro
-    {
+namespace Солнечная_система {
+    abstract class Astro {
         protected int R;
         protected int x, y;
 
-        public Astro()
-        {
+        public Astro() {
             x = 23;
             y = 50;
             R = 70;
         }
 
-        public Astro(int x, int y, int R)
-        {
+        public Astro(int x, int y, int R) {
             this.x = x;
             this.y = y;
             this.R = R;
@@ -29,23 +25,19 @@ namespace Солнечная_система
         public abstract void Draw(Graphics G);
     }
 
-    class Sun : Astro
-    {
+    class Sun : Astro {
         public Sun(int x, int y, int R) : base(x, y, R) { }
 
-        public override void Draw(Graphics G)
-        {
+        public override void Draw(Graphics G) {
             SolidBrush brush = new SolidBrush(Color.Yellow);
             G.FillEllipse(brush, x - R, y + R, x + 2 * R, y + 2 * R);
         }
     }
 
-    class Moon : Astro
-    {
+    class Moon : Astro {
         public Moon(int x, int y, int R) : base(x, y, R) { }
 
-        public override void Draw(Graphics e)
-        {
+        public override void Draw(Graphics e) {
             Brush B = new SolidBrush(Color.White);
             e.FillEllipse(B, x + 150, y + 150, 60, 60);
             Brush P = new SolidBrush(Color.Gray);
@@ -56,12 +48,10 @@ namespace Солнечная_система
         }
     }
 
-    class Saturn : Astro
-    {
+    class Saturn : Astro {
         public Saturn(int x, int y, int R) : base(x, y, R) { }
 
-        public override void Draw(Graphics e)
-        {
+        public override void Draw(Graphics e) {
             Brush B = new SolidBrush(Color.Brown);
             Pen P = new Pen(Color.White);
             e.FillEllipse(B, x + 250, y + 250, 80, 80);
@@ -69,12 +59,10 @@ namespace Солнечная_система
         }
     }
 
-    class Kometa : Astro
-    {
+    class Kometa : Astro {
         public Kometa(int x, int y, int R) : base(x, y, R) { }
 
-        public override void Draw(Graphics e)
-        {
+        public override void Draw(Graphics e) {
             Brush B = new SolidBrush(Color.Red);
             Pen P = new Pen(Color.White);
             e.FillEllipse(B, x + 100, y + 100, 30, 30);
