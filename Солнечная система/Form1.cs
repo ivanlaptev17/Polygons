@@ -10,11 +10,12 @@ using System.Windows.Forms;
 
 namespace Солнечная_система {
     public partial class Form1 : Form  {
-        Astro[] astros = new Astro[4] {
+        Astro[] astros = new Astro[5] {
             new Sun(100, 100, 23),
             new Moon(200, 100, 21),
             new Saturn(160, 100, 123),
-            new Kometa(300, 100, 231)
+            new Kometa(300, 100, 231),
+            new Month(400, 100, 123)
         };
 
         public Form1() {
@@ -22,9 +23,10 @@ namespace Солнечная_система {
         }
 
         private void pnl_Paint(object sender, PaintEventArgs e) {
-            if (((ToolStripMenuItem)sender).CheckState == CheckState.Checked)
-                astros[0].Draw(e.Graphics);
-            //if(солнце.CheckState == CheckState.Checked)
+            foreach(Astro astro in astros) 
+                if (astro.IsDrawing)
+                    astro.Draw(e.Graphics); 
+            //if (солнце.CheckState == CheckState.Checked)
             //    astros[0].Draw(e.Graphics);
             //if (луна.CheckState == CheckState.Checked)
             //    astros[1].Draw(e.Graphics);
@@ -32,6 +34,8 @@ namespace Солнечная_система {
             //    astros[2].Draw(e.Graphics);
             //if (комета.CheckState == CheckState.Checked)
             //    astros[3].Draw(e.Graphics);
+            //if (месяц.CheckState == CheckState.Checked)
+            //    astros[4].Draw(e.Graphics);
         }
 
         private void planet_CheckedChanged(object sender, EventArgs e) {

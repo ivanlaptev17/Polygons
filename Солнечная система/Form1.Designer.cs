@@ -37,6 +37,7 @@ namespace Солнечная_система
             this.сатурн = new System.Windows.Forms.ToolStripMenuItem();
             this.комета = new System.Windows.Forms.ToolStripMenuItem();
             this.pnl = new System.Windows.Forms.Panel();
+            this.месяц = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,7 +57,8 @@ namespace Солнечная_система
             this.солнце,
             this.луна,
             this.сатурн,
-            this.комета});
+            this.комета,
+            this.месяц});
             this.menu.Name = "menu";
             this.menu.Size = new System.Drawing.Size(129, 20);
             this.menu.Text = "Что на небосклоне?";
@@ -107,6 +109,14 @@ namespace Солнечная_система
             this.pnl.TabIndex = 1;
             this.pnl.Paint += new System.Windows.Forms.PaintEventHandler(this.pnl_Paint);
             // 
+            // месяц
+            // 
+            this.месяц.CheckOnClick = true;
+            this.месяц.Name = "месяц";
+            this.месяц.Size = new System.Drawing.Size(180, 22);
+            this.месяц.Text = "Месяц";
+            this.месяц.CheckedChanged += new System.EventHandler(this.planet_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -133,6 +143,7 @@ namespace Солнечная_система
         private System.Windows.Forms.ToolStripMenuItem луна;
         private System.Windows.Forms.ToolStripMenuItem сатурн;
         private System.Windows.Forms.ToolStripMenuItem комета;
+        private System.Windows.Forms.ToolStripMenuItem месяц;
     }
 }
 

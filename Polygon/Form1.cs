@@ -8,29 +8,32 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Polygon
-{
-    public partial class Form1 : Form
-    {
+namespace Polygon {
+    public partial class Form1 : Form {
         List<Shape> shapes = new List<Shape> { };
-        bool flag = false;
-        Circle circle = new Circle(50, 50);
-        Square square = new Square(150, 150);
         
-        public Form1()
-        {
+        public Form1() {
             InitializeComponent();
         }
+        
 
-        private void Form1_MouseDown(object sender, MouseEventArgs e)
-        {
+        private void panel_Paint(object sender, PaintEventArgs e) {
             Refresh();
         }
 
-        private void Form1_Paint(object sender, PaintEventArgs e)
-        {
-            circle.Draw(e.Graphics);
-            square.Draw(e.Graphics);
+        private void panel_MouseDown(object sender, MouseEventArgs e) {
+            foreach(Shape shape in shapes)
+            {
+                
+            }
+        }
+
+        private void panel_MouseUp(object sender, MouseEventArgs e) {
+
+        }
+
+        private void panel_MouseMove(object sender, MouseEventArgs e) {
+
         }
     }
 }
