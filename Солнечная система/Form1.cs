@@ -23,19 +23,16 @@ namespace Солнечная_система {
         }
 
         private void pnl_Paint(object sender, PaintEventArgs e) {
-            foreach(Astro astro in astros) 
-                if (astro.IsDrawing)
-                    astro.Draw(e.Graphics); 
-            //if (солнце.CheckState == CheckState.Checked)
-            //    astros[0].Draw(e.Graphics);
-            //if (луна.CheckState == CheckState.Checked)
-            //    astros[1].Draw(e.Graphics);
-            //if (сатурн.CheckState == CheckState.Checked)
-            //    astros[2].Draw(e.Graphics);
-            //if (комета.CheckState == CheckState.Checked)
-            //    astros[3].Draw(e.Graphics);
-            //if (месяц.CheckState == CheckState.Checked)
-            //    astros[4].Draw(e.Graphics);
+            if (солнце.CheckState == CheckState.Checked)
+                astros[0].Draw(e.Graphics);
+            if (луна.CheckState == CheckState.Checked)
+                astros[1].Draw(e.Graphics);
+            if (сатурн.CheckState == CheckState.Checked)
+                astros[2].Draw(e.Graphics);
+            if (комета.CheckState == CheckState.Checked)
+                astros[3].Draw(e.Graphics);
+            if (месяц.CheckState == CheckState.Checked)
+                astros[4].Draw(e.Graphics);
         }
 
         private void planet_CheckedChanged(object sender, EventArgs e) {
