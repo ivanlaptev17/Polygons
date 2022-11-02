@@ -10,46 +10,32 @@ using System.Windows.Forms;
 
 namespace Polygon {
     public partial class Form1 : Form {
-        List<Shape> shapes = new List<Shape> { new Circle(22, 12), new Triangle(231, 123), new Square(123, 438) };
-        Circle shape = new Circle(233, 22);
+        List<Shape> shapes;
+        bool flag;
 
         public Form1() {
             InitializeComponent();
-            comboBox1.DataSource = shapes;
+        }
+
+        private void Form1_Load(object sender, EventArgs e) {
         }
 
         private void panel_Paint(object sender, PaintEventArgs e) {
+            if(flag) shapes[shapes.Count-1].Draw(e.Graphics);
         }
 
         private void panel_MouseDown(object sender, MouseEventArgs e) {
-            var G = panel.CreateGraphics();
-            shape = new Circle(e.X, e.Y);
-            if (shape.IsInside(e.X, e.Y))
-                shape.isDragged = true;
-            ((Shape)comboBox1.SelectedItem).Draw(G);
+            Shape item = (Shape)comboBox1.SelectedItem;
+            shapes.Add(item);
+            if(!shapes[shapes.Count-1].IsInside(e.X, e.Y)) flag = true;
+            else flag = false;
+            panel.Invalidate();
         }
 
         private void panel_MouseMove(object sender, MouseEventArgs e) {
-
         }
 
         private void panel_MouseUp(object sender, MouseEventArgs e) {
-        }
-
-
-        private void circleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void squareToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void triangleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
