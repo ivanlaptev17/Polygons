@@ -18,8 +18,9 @@ namespace Polygon {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            shapes = new List<Shape>();
+            shapes = new List<Shape> { new Circle(132, 21), new Triangle(321, 31), new Square(21, 23) };
             comboBox1.DataSource = shapes;
+            sender.
         }
 
         private void panel_Paint(object sender, PaintEventArgs e) {
@@ -27,7 +28,10 @@ namespace Polygon {
         }
 
         private void panel_MouseDown(object sender, MouseEventArgs e) {
-            shapes.Add((Shape)comboBox1.SelectedValue;)
+            switch (comboBox1.SelectedIndex)
+            {
+                case 0: shapes.Add()
+            }
             if (!shapes[shapes.Count-1].IsInside(e.X, e.Y)) flag = true;
             else flag = false;
             panel.Invalidate();

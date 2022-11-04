@@ -61,25 +61,25 @@ namespace Polygon
             this.squareToolStripMenuItem,
             this.triangleToolStripMenuItem});
             this.figureTypeToolStripMenuItem.Name = "figureTypeToolStripMenuItem";
-            this.figureTypeToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
+            this.figureTypeToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
             this.figureTypeToolStripMenuItem.Text = "Figure Type";
             // 
             // circleToolStripMenuItem
             // 
             this.circleToolStripMenuItem.Name = "circleToolStripMenuItem";
-            this.circleToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.circleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.circleToolStripMenuItem.Text = "Circle";
             // 
             // squareToolStripMenuItem
             // 
             this.squareToolStripMenuItem.Name = "squareToolStripMenuItem";
-            this.squareToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.squareToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.squareToolStripMenuItem.Text = "Square";
             // 
             // triangleToolStripMenuItem
             // 
             this.triangleToolStripMenuItem.Name = "triangleToolStripMenuItem";
-            this.triangleToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.triangleToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.triangleToolStripMenuItem.Text = "Triangle";
             // 
             // panel
@@ -100,6 +100,7 @@ namespace Polygon
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(95, 0);
             this.comboBox1.Name = "comboBox1";
