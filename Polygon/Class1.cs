@@ -9,44 +9,32 @@ namespace Polygon {
     abstract class Shape {
         protected static int R;
         protected static Color C;
-        public int x, y;
-        public bool isDragged;
-        public int dx, dy;
+        protected int x;
+        protected int y;
+        protected bool isDragged;
+        protected int dx;
+        protected int dy;
 
         static Shape() {
-            C = Color.Blue;
-            R = 20;
+            C = Color.Red;
+            R = 25;
         }
+
 
         public Shape(int x, int y) {
             this.x = x;
             this.y = y;
         }
 
-        public bool IsDragged {
-            get { return isDragged; }
-             set { isDragged = value; }
-        }
+        public virtual bool IsDragged { get; set; }
 
-        public int Dx {
-            get { return dx; }
-            set { dx = value; }
-        }
+        public virtual int Dx { get; set; }
 
-        public int Dy {
-            get { return dy; }
-            set { dy = value; }
-        }
+        public virtual int Dy { get; set; }
 
-        public int X {
-            get { return x; }
-            set { x = value; }
-        }
+        public virtual int X { get; set; }
 
-        public int Y {
-            get { return y; }
-            set { y = value; }
-        }
+        public virtual int Y { get; set; }
 
         public abstract void Draw(Graphics G);
 
@@ -67,20 +55,27 @@ namespace Polygon {
     }
 
     class Triangle : Shape {
-        public Triangle(int x, int y) : base(x, y) { }
+        public Point[] points;
+        public Triangle(int x, int y) : base(x, y) {
+            points = new Point[3];
+            points[0] = new Point(x, y - R);
+            points[1] = new Point(x + (int)(R * Math.Sqrt(3) / 2), y + R / 2);
+            points[2] = new Point(x - (int)(R * Math.Sqrt(3) / 2), y + R / 2);
+        }
 
         public override void Draw(Graphics G) {
             SolidBrush brush = new SolidBrush(C);
-            Point[] points = {
-                new Point(x, y - R),
-                new Point((int)(x + R * Math.Sqrt(3) / 2), y + R / 2),
-                new Point((int)(x - R * Math.Sqrt(3) / 2), y + R / 2)
-            };
+            points[0] = new Point(x, y - R);
+            points[1] = new Point(x + (int)(R * Math.Sqrt(3) / 2), y + R / 2);
+            points[2] = new Point(x - (int)(R * Math.Sqrt(3) / 2), y + R / 2);
             G.FillPolygon(brush, points);
         }
 
         public override bool IsInside(int x, int y) {
-            return y > 2 * this.x + R * Math.Sqrt(3) && y < -2 * this.x + R * Math.Sqrt(3);
+            int a = (points[0].X - x) * (points[1].Y - points[0].Y) - (points[1].X - points[0].X) * (points[0].Y - y);
+            int b = (points[1].X - x) * (points[2].Y - points[1].Y) - (points[2].X - points[1].X) * (points[1].Y - y);
+            int c = (points[2].X - x) * (points[0].Y - points[2].Y) - (points[0].X - points[2].X) * (points[2].Y - y);
+            return (a >= 0 && b >= 0 && c >= 0) || (a <= 0 && b <= 0 && c <= 0);
         }
     }
 
@@ -89,7 +84,7 @@ namespace Polygon {
 
         public override void Draw(Graphics G) {
             SolidBrush brush = new SolidBrush(C);
-            G.FillRectangle(brush, (float)(x - R / Math.Sqrt(2)), (float)(y - R / Math.Sqrt(2)), (float)(R * 2 / Math.Sqrt(2)), (float)(R * 2 / Math.Sqrt(2)));
+            G.FillRectangle(brush, x - (int)(R * 2 / Math.Sqrt(2)), y - (int)(R * 2 / Math.Sqrt(2)), (int)(R * 2 / Math.Sqrt(2)), (int)(R * 2 / Math.Sqrt(2)));
         }
 
         public override bool IsInside(int x, int y) {

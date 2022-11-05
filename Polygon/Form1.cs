@@ -15,32 +15,102 @@ namespace Polygon {
 
         public Form1() {
             InitializeComponent();
+            shapes = new List<Shape>();
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            shapes = new List<Shape> { new Circle(132, 21), new Triangle(321, 31), new Square(21, 23) };
-            comboBox1.DataSource = shapes;
-            sender.
         }
 
         private void panel_Paint(object sender, PaintEventArgs e) {
-            if(flag) shapes[shapes.Count-1].Draw(e.Graphics);
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            foreach (Shape i in shapes) i.Draw(e.Graphics);
         }
 
         private void panel_MouseDown(object sender, MouseEventArgs e) {
-            switch (comboBox1.SelectedIndex)
-            {
-                case 0: shapes.Add()
+            if(e.Button == MouseButtons.Left) {
+                foreach(Shape i in shapes) {
+                    if(i.IsInside(e.X, e.Y)) {
+                        flag = true;
+                        i.Dx = e.X;
+                        i.Dy = e.Y;
+                        i.IsDragged = true;
+                    }
+                }
+                if(!flag) {
+                    if (circleToolStripMenuItem.Checked) {
+                        Circle circle = new Circle(e.X, e.Y);
+                        shapes.Add(circle);
+                    }
+                    else {
+                        if (squareToolStripMenuItem.Checked) {
+                            Square square = new Square(e.X, e.Y);
+                            shapes.Add(square);
+                        }
+                        else {
+                            if (triangleToolStripMenuItem.Checked) {
+                                Triangle triangle = new Triangle(e.X, e.Y);
+                                shapes.Add(triangle);
+                            }
+                        }
+                        Refresh();
+                    }
+                }
             }
-            if (!shapes[shapes.Count-1].IsInside(e.X, e.Y)) flag = true;
-            else flag = false;
-            panel.Invalidate();
+            if (e.Button == MouseButtons.Right)
+            {
+                for (int i = shapes.Count - 1; i >= 0; i--)
+                {
+                    if (shapes[i].IsInside(e.X, e.Y))
+                    {
+                        shapes.RemoveAt(i);
+                        break;
+                    }
+                }
+            }
+            Refresh();
         }
 
         private void panel_MouseMove(object sender, MouseEventArgs e) {
+            if(flag) {
+                foreach(Shape i in shapes) {
+                    if(i.IsDragged) {
+                        i.X = e.X - i.Dx;
+                        i.Y = e.Y - i.Dy;
+                        i.Dx = e.X;
+                        i.Dy = e.Y;
+                    }
+                }
+                Refresh();
+            }
         }
 
         private void panel_MouseUp(object sender, MouseEventArgs e) {
+            if(flag) {
+                flag = false;
+                foreach (Shape i in shapes)
+                    i.IsDragged = false;
+            }
+        }
+
+        private void circleToolStripMenuItem_Click(object sender, EventArgs e) {
+            circleToolStripMenuItem.CheckState = CheckState.Checked;
+            circleToolStripMenuItem.Checked = true;
+            triangleToolStripMenuItem.Checked = false;
+            squareToolStripMenuItem.Checked = false;
+        }
+
+        private void squareToolStripMenuItem_Click(object sender, EventArgs e) {
+            circleToolStripMenuItem.CheckState = CheckState.Checked;
+            circleToolStripMenuItem.Checked = false;
+            triangleToolStripMenuItem.Checked = false;
+            squareToolStripMenuItem.Checked = true;
+        }
+
+        private void triangleToolStripMenuItem_Click(object sender, EventArgs e) {
+            circleToolStripMenuItem.CheckState = CheckState.Checked;
+            circleToolStripMenuItem.Checked = false;
+            triangleToolStripMenuItem.Checked = true;
+            squareToolStripMenuItem.Checked = false;
         }
     }
 }
