@@ -16,7 +16,7 @@ namespace Polygon {
         protected int dy;
 
         static Shape() {
-            C = Color.Red;
+            C = Color.Blue;
             R = 25;
         }
 
@@ -24,17 +24,20 @@ namespace Polygon {
         public Shape(int x, int y) {
             this.x = x;
             this.y = y;
+            isDragged = false;
+            dx = 0;
+            dy = 0;
         }
 
-        public virtual bool IsDragged { get; set; }
+        public abstract bool IsDragged { get; set; }
 
-        public virtual int Dx { get; set; }
+        public abstract int Dx { get; set; }
 
-        public virtual int Dy { get; set; }
+        public abstract int Dy { get; set; }
 
-        public virtual int X { get; set; }
+        public abstract int X { get; set; }
 
-        public virtual int Y { get; set; }
+        public abstract int Y { get; set; }
 
         public abstract void Draw(Graphics G);
 
@@ -43,7 +46,17 @@ namespace Polygon {
 
     class Circle : Shape {
         public Circle(int x, int y) : base(x, y) { }
-        
+
+        public override bool IsDragged { get => isDragged; set=> isDragged = value; }
+
+        public override int Dx { get => dx; set => dx = value; }
+
+        public override int Dy { get => dy; set => dy = value; }
+
+        public override int X { get => x; set => x = value; }
+
+        public override int Y { get => y; set => y = value; }
+
         public override void Draw(Graphics G) {
             SolidBrush brush = new SolidBrush(C);
             G.FillEllipse(brush, x - R, y - R, 2 * R, 2 * R);
@@ -63,6 +76,16 @@ namespace Polygon {
             points[2] = new Point(x - (int)(R * Math.Sqrt(3) / 2), y + R / 2);
         }
 
+        public override bool IsDragged { get => isDragged; set => isDragged = value; }
+
+        public override int Dx { get => dx; set => dx = value; }
+
+        public override int Dy { get => dy; set => dy = value; }
+
+        public override int X { get => x; set => x = value; }
+
+        public override int Y { get => y; set => y = value; }
+
         public override void Draw(Graphics G) {
             SolidBrush brush = new SolidBrush(C);
             points[0] = new Point(x, y - R);
@@ -81,6 +104,16 @@ namespace Polygon {
 
     class Square : Shape {
         public Square(int x, int y) : base(x, y) { }
+
+        public override bool IsDragged { get => isDragged; set => isDragged = value; }
+
+        public override int Dx { get => dx; set => dx = value; }
+
+        public override int Dy { get => dy; set => dy = value; }
+
+        public override int X { get => x; set => x = value; }
+
+        public override int Y { get => y; set => y = value; }
 
         public override void Draw(Graphics G) {
             SolidBrush brush = new SolidBrush(C);

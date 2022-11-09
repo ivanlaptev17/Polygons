@@ -23,7 +23,8 @@ namespace Polygon {
 
         private void panel_Paint(object sender, PaintEventArgs e) {
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            foreach (Shape i in shapes) i.Draw(e.Graphics);
+            foreach(Shape i in shapes) 
+                i.Draw(e.Graphics);
         }
 
         private void panel_MouseDown(object sender, MouseEventArgs e) {
@@ -31,23 +32,23 @@ namespace Polygon {
                 foreach(Shape i in shapes) {
                     if(i.IsInside(e.X, e.Y)) {
                         flag = true;
-                        i.Dx = e.X;
-                        i.Dy = e.Y;
+                        i.Dx = i.X - e.X;
+                        i.Dy = i.Y - e.Y;
                         i.IsDragged = true;
                     }
                 }
                 if(!flag) {
-                    if (circleToolStripMenuItem.Checked) {
+                    if(circleToolStripMenuItem.Checked) {
                         Circle circle = new Circle(e.X, e.Y);
                         shapes.Add(circle);
                     }
                     else {
-                        if (squareToolStripMenuItem.Checked) {
+                        if(squareToolStripMenuItem.Checked) {
                             Square square = new Square(e.X, e.Y);
                             shapes.Add(square);
                         }
                         else {
-                            if (triangleToolStripMenuItem.Checked) {
+                            if(triangleToolStripMenuItem.Checked) {
                                 Triangle triangle = new Triangle(e.X, e.Y);
                                 shapes.Add(triangle);
                             }
@@ -56,12 +57,9 @@ namespace Polygon {
                     }
                 }
             }
-            if (e.Button == MouseButtons.Right)
-            {
-                for (int i = shapes.Count - 1; i >= 0; i--)
-                {
-                    if (shapes[i].IsInside(e.X, e.Y))
-                    {
+            if(e.Button == MouseButtons.Right) {
+                for(int i = shapes.Count - 1; i >= 0; --i) {
+                    if(shapes[i].IsInside(e.X, e.Y)) {
                         shapes.RemoveAt(i);
                         break;
                     }
@@ -74,10 +72,8 @@ namespace Polygon {
             if(flag) {
                 foreach(Shape i in shapes) {
                     if(i.IsDragged) {
-                        i.X = e.X - i.Dx;
-                        i.Y = e.Y - i.Dy;
-                        i.Dx = e.X;
-                        i.Dy = e.Y;
+                        i.X = e.X + i.Dx;
+                        i.Y = e.Y + i.Dy;
                     }
                 }
                 Refresh();
@@ -87,30 +83,20 @@ namespace Polygon {
         private void panel_MouseUp(object sender, MouseEventArgs e) {
             if(flag) {
                 flag = false;
-                foreach (Shape i in shapes)
+                foreach(Shape i in shapes) {
                     i.IsDragged = false;
+                    i.Dx = 0;
+                    i.Dy = 0;
+                }
             }
         }
 
-        private void circleToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void ToolStripMenuItem_Click(object sender, EventArgs e) {
             circleToolStripMenuItem.CheckState = CheckState.Checked;
-            circleToolStripMenuItem.Checked = true;
-            triangleToolStripMenuItem.Checked = false;
-            squareToolStripMenuItem.Checked = false;
-        }
-
-        private void squareToolStripMenuItem_Click(object sender, EventArgs e) {
-            circleToolStripMenuItem.CheckState = CheckState.Checked;
-            circleToolStripMenuItem.Checked = false;
-            triangleToolStripMenuItem.Checked = false;
-            squareToolStripMenuItem.Checked = true;
-        }
-
-        private void triangleToolStripMenuItem_Click(object sender, EventArgs e) {
-            circleToolStripMenuItem.CheckState = CheckState.Checked;
-            circleToolStripMenuItem.Checked = false;
-            triangleToolStripMenuItem.Checked = true;
-            squareToolStripMenuItem.Checked = false;
+            ((ToolStripMenuItem)sender).Checked = true;
+            foreach(ToolStripMenuItem item in figureTypeToolStripMenuItem.DropDownItems)
+                if(item != null && item != (ToolStripMenuItem)sender)
+                    item.Checked = false;
         }
     }
 }
