@@ -38,3 +38,13 @@ Z:\respository\Polygon\obj\Debug\Polygon.csproj.GenerateResource.cache
 Z:\respository\Polygon\obj\Debug\Polygon.csproj.CoreCompileInputs.cache
 Z:\respository\Polygon\obj\Debug\Polygon.exe
 Z:\respository\Polygon\obj\Debug\Polygon.pdb
+Z:\Polygons\Polygon\bin\Debug\Polygon.exe.config
+Z:\Polygons\Polygon\bin\Debug\Polygon.exe
+Z:\Polygons\Polygon\bin\Debug\Polygon.pdb
+Z:\Polygons\Polygon\obj\Debug\Polygon.Form1.resources
+Z:\Polygons\Polygon\obj\Debug\Polygon.Properties.Resources.resources
+Z:\Polygons\Polygon\obj\Debug\Polygon.csproj.GenerateResource.cache
+Z:\Polygons\Polygon\obj\Debug\Polygon.csproj.CoreCompileInputs.cache
+Z:\Polygons\Polygon\obj\Debug\Polygon.exe
+Z:\Polygons\Polygon\obj\Debug\Polygon.pdb
+Z:\Polygons\Polygon\obj\Debug\Polygon.csproj.AssemblyReference.cache

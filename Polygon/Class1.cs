@@ -14,6 +14,7 @@ namespace Polygon {
         protected bool isDragged;
         protected int dx;
         protected int dy;
+        protected bool drawLine;
 
         static Shape() {
             C = Color.Blue;
@@ -27,7 +28,10 @@ namespace Polygon {
             isDragged = false;
             dx = 0;
             dy = 0;
+            drawLine = false;
         }
+
+        public abstract bool DrawLine { get; set; }
 
         public abstract bool IsDragged { get; set; }
 
@@ -46,6 +50,8 @@ namespace Polygon {
 
     class Circle : Shape {
         public Circle(int x, int y) : base(x, y) { }
+
+        public override bool DrawLine { get => drawLine; set => drawLine = value; }
 
         public override bool IsDragged { get => isDragged; set=> isDragged = value; }
 
@@ -76,6 +82,8 @@ namespace Polygon {
             points[2] = new Point(x - (int)(R * Math.Sqrt(3) / 2), y + R / 2);
         }
 
+        public override bool DrawLine { get => drawLine; set => drawLine = value; }
+
         public override bool IsDragged { get => isDragged; set => isDragged = value; }
 
         public override int Dx { get => dx; set => dx = value; }
@@ -105,6 +113,8 @@ namespace Polygon {
     class Square : Shape {
         public Square(int x, int y) : base(x, y) { }
 
+        public override bool DrawLine { get => drawLine; set => drawLine = value; }
+
         public override bool IsDragged { get => isDragged; set => isDragged = value; }
 
         public override int Dx { get => dx; set => dx = value; }
@@ -117,7 +127,7 @@ namespace Polygon {
 
         public override void Draw(Graphics G) {
             SolidBrush brush = new SolidBrush(C);
-            G.FillRectangle(brush, x - (int)(R * 2 / Math.Sqrt(2)), y - (int)(R * 2 / Math.Sqrt(2)), (int)(R * 2 / Math.Sqrt(2)), (int)(R * 2 / Math.Sqrt(2)));
+            G.FillRectangle(brush, x - (int)(R * 2 / Math.Sqrt(2) / 2), y - (int)(R * 2 / Math.Sqrt(2) / 2), (int)(R * 2 / Math.Sqrt(2)), (int)(R * 2 / Math.Sqrt(2)));
         }
 
         public override bool IsInside(int x, int y) {

@@ -16,18 +16,38 @@ namespace Polygon {
         public Form1() {
             InitializeComponent();
             shapes = new List<Shape>();
+            DoubleBuffered = true;
         }
 
-        private void Form1_Load(object sender, EventArgs e) {
-        }
-
-        private void panel_Paint(object sender, PaintEventArgs e) {
+        private void Form_Paint(object sender, PaintEventArgs e)
+        {
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            foreach(Shape i in shapes) 
+            Pen pen = new Pen(Color.Black);
+            foreach (Shape i in shapes)
                 i.Draw(e.Graphics);
+            int cntL, cntR;
+            for (int i = 0; i < shapes.Count; i++) {
+                for (int j = i + 1; j < shapes.Count; j++) {
+                    cntL = 0;
+                    cntR = 0;
+                    //TODO: проверка
+                    float k = ((float)shapes[j].Y - (float)shapes[i].Y) / ((float)shapes[j].X - (float)shapes[i].X);
+                    float b = (float)shapes[i].Y - k * shapes[i].X;
+                    for (int l = 0; l < shapes.Count; l++) {
+                        if ((l!=i) && (l!=j)) { 
+                            if (shapes[l].Y > k * shapes[l].X + b)
+                                ++cntR;
+                            else
+                                ++cntL;
+                        }
+                    }
+                    if (cntR * cntL == 0 && shapes[i].X!=shapes[j].X) 
+                        e.Graphics.DrawLine(pen, shapes[i].X, shapes[i].Y, shapes[j].X, shapes[j].Y);
+                }
+            }
         }
 
-        private void panel_MouseDown(object sender, MouseEventArgs e) {
+            private void Form_MouseDown(object sender, MouseEventArgs e) {
             if(e.Button == MouseButtons.Left) {
                 foreach(Shape i in shapes) {
                     if(i.IsInside(e.X, e.Y)) {
@@ -68,7 +88,7 @@ namespace Polygon {
             Refresh();
         }
 
-        private void panel_MouseMove(object sender, MouseEventArgs e) {
+        private void Form_MouseMove(object sender, MouseEventArgs e) {
             if(flag) {
                 foreach(Shape i in shapes) {
                     if(i.IsDragged) {
@@ -80,7 +100,7 @@ namespace Polygon {
             }
         }
 
-        private void panel_MouseUp(object sender, MouseEventArgs e) {
+        private void Form_MouseUp(object sender, MouseEventArgs e) {
             if(flag) {
                 flag = false;
                 foreach(Shape i in shapes) {
