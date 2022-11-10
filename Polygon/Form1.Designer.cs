@@ -37,7 +37,6 @@ namespace Polygon
             this.circleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.squareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.triangleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel = new System.Windows.Forms.Panel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -85,17 +84,6 @@ namespace Polygon
             this.triangleToolStripMenuItem.Text = "Triangle";
             this.triangleToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
-            // panel
-            // 
-            this.panel.Location = new System.Drawing.Point(0, 27);
-            this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(800, 422);
-            this.panel.TabIndex = 1;
-            this.panel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_Paint);
-            this.panel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel_MouseDown);
-            this.panel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel_MouseMove);
-            this.panel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panel_MouseUp);
-            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -106,12 +94,14 @@ namespace Polygon
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.panel);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Polygon";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form_Paint);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Form_MouseUp);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -127,7 +117,6 @@ namespace Polygon
         private System.Windows.Forms.ToolStripMenuItem circleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem squareToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem triangleToolStripMenuItem;
-        private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }
