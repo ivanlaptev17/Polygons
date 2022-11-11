@@ -22,7 +22,7 @@ namespace Polygon {
         private void Form_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            Pen pen = new Pen(Color.Black);
+            Pen pen = new Pen(Color.Black, 2);
             foreach (Shape i in shapes)
                 i.Draw(e.Graphics);
             if (shapes.Count >= 3)
@@ -94,15 +94,16 @@ namespace Polygon {
                         {
                             shapes.RemoveAt(shapes.Count - 1);
                             flag = true;
-                            for(int j=0; j<shapes.Count; ++j)
+                            for (int j = 0; j < shapes.Count; j++)
                             {
+                                shapes[j].IsDragged = true;
                                 shapes[j].X = e.X;
                                 shapes[j].Y = e.Y;
                             }
                         }
-                        for(int i=0; i<shapes.Count; ++i)
+                        for (int i = 0; i < shapes.Count; i++)
                         {
-                            if(!shapes[i].DrawLine)
+                            if (!shapes[i].DrawLine)
                             {
                                 shapes.RemoveAt(i);
                                 i--;

@@ -17,10 +17,9 @@ namespace Polygon {
         protected bool drawLine;
 
         static Shape() {
-            C = Color.Blue;
-            R = 25;
+            C = Color.Green;
+            R = 30;
         }
-
 
         public Shape(int x, int y) {
             this.x = x;
