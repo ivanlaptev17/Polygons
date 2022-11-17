@@ -12,6 +12,7 @@ namespace Polygon {
     public partial class Form1 : Form {
         List<Shape> shapes;
         bool flag;
+        bool shapeMoving;
 
         public Form1() {
             InitializeComponent();
@@ -19,12 +20,9 @@ namespace Polygon {
             DoubleBuffered = true;
         }
 
-        private void Form_Paint(object sender, PaintEventArgs e)
-        {
+        private void Form_Paint(object sender, PaintEventArgs e) {
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            Pen pen = new Pen(Color.Black, 2);
-            foreach (Shape i in shapes)
-                i.Draw(e.Graphics);
+            Pen pen = new Pen(Color.Black, 3);
             if (shapes.Count >= 3)
             {
                 int cntL, cntR;
@@ -57,6 +55,8 @@ namespace Polygon {
                     }
                 }
             }
+            foreach (Shape i in shapes)
+                i.Draw(e.Graphics); 
         }
 
             private void Form_MouseDown(object sender, MouseEventArgs e) {
@@ -74,26 +74,23 @@ namespace Polygon {
                         Circle circle = new Circle(e.X, e.Y);
                         shapes.Add(circle);
                     }
-                    else {
-                        if (squareToolStripMenuItem.Checked) {
-                            Square square = new Square(e.X, e.Y);
-                            shapes.Add(square);
-                        }
-                        else {
-                            if (triangleToolStripMenuItem.Checked) {
-                                Triangle triangle = new Triangle(e.X, e.Y);
-                                shapes.Add(triangle);
-                            }
-                        }
-                        Refresh();
+                    if (squareToolStripMenuItem.Checked) {
+                        Square square = new Square(e.X, e.Y);
+                        shapes.Add(square);
                     }
-                    if(shapes.Count>=3)
+
+                    if (triangleToolStripMenuItem.Checked) {
+                        Triangle triangle = new Triangle(e.X, e.Y);
+                        shapes.Add(triangle);
+                    }
+                    if (shapes.Count >= 3)
                     {
                         Refresh();
-                        if(!shapes[shapes.Count-1].DrawLine)
+                        if (!shapes[shapes.Count - 1].DrawLine)
                         {
                             shapes.RemoveAt(shapes.Count - 1);
                             flag = true;
+                            shapeMoving = true;
                             for (int j = 0; j < shapes.Count; j++)
                             {
                                 shapes[j].IsDragged = true;
@@ -101,7 +98,7 @@ namespace Polygon {
                                 shapes[j].Y = e.Y;
                             }
                         }
-                        for (int i = 0; i < shapes.Count; i++)
+                        for (int i = 0; i < shapes.Count; ++i)
                         {
                             if (!shapes[i].DrawLine)
                             {
@@ -138,15 +135,16 @@ namespace Polygon {
         private void Form_MouseUp(object sender, MouseEventArgs e) {
             if(flag) {
                 flag = false;
-                foreach(Shape i in shapes) {
-                    i.IsDragged = false;
-                    i.Dx = 0;
-                    i.Dy = 0;
+                if (shapeMoving)
+                {
+                    foreach (Shape i in shapes)
+                        i.IsDragged = false;
+                    shapeMoving = false;
                 }
                 if (shapes.Count >= 3)
                 {
                     Refresh();
-                    for(int i=0; i<shapes.Count; i++)
+                    for(int i = 0; i<shapes.Count; ++i)
                     {
                         if(!shapes[i].DrawLine)
                         {

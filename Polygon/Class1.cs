@@ -17,8 +17,8 @@ namespace Polygon {
         protected bool drawLine;
 
         static Shape() {
-            C = Color.Green;
-            R = 30;
+            C = Color.DarkOliveGreen;
+            R = 50;
         }
 
         public Shape(int x, int y) {
