@@ -28,17 +28,16 @@ namespace Polygon {
                 int cntL, cntR;
                 for (int i = 0; i < shapes.Count; ++i)
                     shapes[i].DrawLine = false;
-                for (int i = 0; i < shapes.Count; i++)
+                for (int i = 0; i < shapes.Count; ++i)
                 {
-                    for (int j = i + 1; j < shapes.Count; j++)
+                    for (int j = i + 1; j < shapes.Count; ++j)
                     {
-                        cntL = 0;
-                        cntR = 0;
+                        cntL = cntR = 0;
                         float k = ((float)shapes[j].Y - (float)shapes[i].Y) / ((float)shapes[j].X - (float)shapes[i].X);
                         float b = (float)shapes[i].Y - k * shapes[i].X;
-                        for (int l = 0; l < shapes.Count; l++)
+                        for (int l = 0; l < shapes.Count; ++l)
                         {
-                            if ((l != i) && (l != j))
+                            if (l != i && l != j)
                             {
                                 if (shapes[l].Y > k * shapes[l].X + b)
                                     ++cntR;
@@ -46,7 +45,7 @@ namespace Polygon {
                                     ++cntL;
                             }
                         }
-                        if (cntR * cntL == 0 && shapes[i].X != shapes[j].X)
+                        if (cntR * cntL== 0 && shapes[i].X!=shapes[j].X) //&& shapes[i].X != shapes[j].X
                         {
                             e.Graphics.DrawLine(pen, shapes[i].X, shapes[i].Y, shapes[j].X, shapes[j].Y);
                             shapes[i].DrawLine = true;
@@ -103,7 +102,7 @@ namespace Polygon {
                             if (!shapes[i].DrawLine)
                             {
                                 shapes.RemoveAt(i);
-                                i--;
+                                --i;
                             }
                         }
                     }
@@ -124,8 +123,8 @@ namespace Polygon {
             if(flag) {
                 foreach(Shape i in shapes) {
                     if(i.IsDragged) {
-                        i.X = e.X + i.Dx;
-                        i.Y = e.Y + i.Dy;
+                        i.X = e.X +i.Dx;
+                        i.Y = e.Y +i.Dy;
                     }
                 }
                 Refresh();
@@ -149,7 +148,7 @@ namespace Polygon {
                         if(!shapes[i].DrawLine)
                         {
                             shapes.RemoveAt(i);
-                            i--;
+                            --i;
                         }
                     }
                     Refresh();
