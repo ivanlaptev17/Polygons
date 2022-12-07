@@ -51,41 +51,65 @@ namespace Polygon {
             //}
 
             // Jarvis Algorithm
-            if (shapes.Count > 0)
+            if (shapes.Count >= 3)
             {
                 Shape minShape = shapes[0];
                 foreach (Shape i in shapes)
                 {
-                    if (i.X <= minShape.X)
+                    if (i.Y > minShape.Y)
                     {
                         minShape = i;
                     }
+                    //else if (i.Y == minShape.Y)
+                    //{
+                    //    minShape = (i.X < minShape.X) ? i : minShape;
+                    //}
                 }
-                List<Shape> hull = new List<Shape> { minShape };
-                while (true)
-                {
-                    Shape t = minShape;
-                    foreach (Shape i in shapes)
+                Point p = new Point(minShape.X - 100, minShape.Y);
+
+                    double minCos = double.MaxValue;
+                    for (int i = 0; i < shapes.Count; i++)
                     {
-                        // if (cos(i, minShape, t) < 0)
-                            t = i;
-                        if (t == minShape)
-                            continue;
-                        else
+                        minCos = double.MaxValue;
+                        double x1 = p.X - minShape.X;
+                        double y1 = -p.Y + minShape.Y;
+                        double x2 = shapes[i].X - minShape.X;
+                        double y2 =-shapes[i].Y + minShape.Y;
+                        double locCos = (x1 * x2 + y1 * y2) / (Math.Sqrt(x1 * x1 + y1 * y1) * Math.Sqrt(x2 * x2 + y2 * y2));
+                        if (locCos < minCos) // скалярный вектор
                         {
-                            minShape = t;
-                            hull.Add(t);
+                            minCos = locCos;
+                            shapes[i].DrawLine = true;
+                            //minShape.DrawLine = true;
+                            p = new Point(shapes[i].X - 100, shapes[i].Y);
+                            minShape = shapes[i];   
                         }
                     }
-                }
-                for (int i = 0; i < shapes.Count - 1; i++)
-                {
-                    e.Graphics.DrawLine(pen, shapes[i].X, shapes[i].Y, shapes[i + 1].X, shapes[i + 1].Y);
-                    shapes[i].DrawLine = true;
-                    shapes[i + 1].DrawLine = true;
-                }
-            }
 
+
+
+                //for (int i = 0; i < shapes.Count; i++)
+                //{
+                //    //Вектор1
+                //    float x1 = p.X - curShape.X;
+                //    float y1 = p.Y - curShape.Y;
+                //    //Вектор2
+                //    float x2 = shapes[i].X - curShape.X;
+                //    float y2 = shapes[i].Y - curShape.Y;
+                //    if ((x1 * x2 + y1 * y2) / (Math.Sqrt(x1 * x1 + y1 * y1) + Math.Sqrt(x2 * x2 + y2 * y2)) < minCos) // скалярный вектор
+                //    {
+                //        minCos = (x1 * x2 + y1 * y2) / (Math.Sqrt(x1 * x1 + y1 * y1) + Math.Sqrt(x2 * x2 + y2 * y2));
+                //        minShape = curShape;
+                //        curShape = shapes[i];
+                //    }
+                //    if (i == shapes.Count - 1) {
+                //        e.Graphics.DrawLine(pen, minShape.X, minShape.Y, curShape.X, curShape.Y);
+                //        minShape.DrawLine = curShape.DrawLine = true;
+                //    }
+                //    p = new Point(minShape.X - 100, minShape.Y);
+                    
+                //}
+            }
             foreach (Shape i in shapes)
                 i.Draw(e.Graphics); 
         }
