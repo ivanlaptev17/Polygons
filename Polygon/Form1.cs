@@ -156,7 +156,7 @@ namespace Polygon {
         }
 
         private double MinCos(double x1, double x2, double y1, double y2) {
-            return (x1 * x2 + y1 + y2) / (Math.Sqrt(x1 * x1 + y1 * y1) + Math.Sqrt(x2 * x2 + y2 * y2));
+            return Math.Abs(x1 * x2 + y1 + y2) / (Math.Sqrt(x1 * x1 + y1 * y1) + Math.Sqrt(x2 * x2 + y2 * y2));
         }
 
         private void Form_MouseDown(object sender, MouseEventArgs e) {
