@@ -23,126 +23,100 @@ namespace Polygon {
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             Pen pen = new Pen(Color.Black, 3);
 
-            // Standard Algorithm
-            //if (shapes.Count > 2) {
-            //    int cntL, cntR;
-            //    for (int i = 0; i < shapes.Count; i++)
-            //        shapes[i].DrawLine = false;
-            //    for (int i = 0; i < shapes.Count; i++) {
-            //        for (int j = i + 1; j < shapes.Count; j++) {
-            //            cntL = cntR = 0;
-            //            float k = ((float)shapes[j].Y - shapes[i].Y) / ((float)shapes[j].X - shapes[i].X);
-            //            float b = shapes[i].Y - k * shapes[i].X;
-            //            for (int l = 0; l < shapes.Count; l++) {
-            //                if (l != i && l != j) {
-            //                    if (shapes[l].Y > k * shapes[l].X + b)
-            //                        cntR++;
-            //                    else
-            //                        cntL++;
-            //                }
-            //            }
-            //            if (cntR * cntL== 0 && shapes[i].X!=shapes[j].X) {
-            //                e.Graphics.DrawLine(pen, shapes[i].X, shapes[i].Y, shapes[j].X, shapes[j].Y);
-            //                shapes[i].DrawLine = true;
-            //                shapes[j].DrawLine = true;
-            //            }
-            //        }
-            //    }
-            //}
-
-            // Jarvis Algorithm
-            //if (shapes.Count >= 3)
-            //{
-            //    Shape minShape = shapes[0];
-            //    foreach (Shape i in shapes)
-            //    {
-            //        if (i.Y > minShape.Y)
-            //        {
-            //            minShape = i;
-            //        }
-            //else if (i.Y == minShape.Y)
-            //{
-            //    minShape = (i.X < minShape.X) ? i : minShape;
-            //}
-            //}
-            //Point p = new Point(minShape.X - 100, minShape.Y);
-
-            //double minCos = double.MaxValue;
-            //for (int i = 0; i < shapes.Count; i++)
-            //{
-            //    minCos = double.MaxValue;
-            //    double x1 = p.X - minShape.X;
-            //    double y1 = -p.Y + minShape.Y;
-            //    double x2 = shapes[i].X - minShape.X;
-            //    double y2 = -shapes[i].Y + minShape.Y;
-            //    double locCos = (x1 * x2 + y1 * y2) / (Math.Sqrt(x1 * x1 + y1 * y1) * Math.Sqrt(x2 * x2 + y2 * y2));
-            //    if (locCos < minCos) // скалярный вектор
-            //    {
-            //        minCos = locCos;
-            //        shapes[i].DrawLine = true;
-            //        //minShape.DrawLine = true;
-            //        p = new Point(shapes[i].X - 100, shapes[i].Y);
-            //        minShape = shapes[i];
-            //    }
-            //}
-
-
-
-            //for (int i = 0; i < shapes.Count; i++)
-            //{
-            //    //Вектор1
-            //    float x1 = p.X - curShape.X;
-            //    float y1 = p.Y - curShape.Y;
-            //    //Вектор2
-            //    float x2 = shapes[i].X - curShape.X;
-            //    float y2 = shapes[i].Y - curShape.Y;
-            //    if ((x1 * x2 + y1 * y2) / (Math.Sqrt(x1 * x1 + y1 * y1) + Math.Sqrt(x2 * x2 + y2 * y2)) < minCos) // скалярный вектор
-            //    {
-            //        minCos = (x1 * x2 + y1 * y2) / (Math.Sqrt(x1 * x1 + y1 * y1) + Math.Sqrt(x2 * x2 + y2 * y2));
-            //        minShape = curShape;
-            //        curShape = shapes[i];
-            //    }
-            //    if (i == shapes.Count - 1) {
-            //        e.Graphics.DrawLine(pen, minShape.X, minShape.Y, curShape.X, curShape.Y);
-            //        minShape.DrawLine = curShape.DrawLine = true;
-            //    }
-            //    p = new Point(minShape.X - 100, minShape.Y);
-
-            //}
-            //}
-
-            // Jarvis Algorithm
-            if (shapes.Count >= 3)
-            {
-                // First shape
-                int startShape = 0; 
-                foreach (Shape i in shapes)
-                    if (i.X <= shapes[startShape].X)
-                        startShape = shapes.IndexOf(i);
-                e.Graphics.DrawLine(pen, shapes[startShape].X, shapes[startShape].Y, shapes[startShape].X, shapes[startShape].Y - 20000);
-
-
-                double x = 0, y = 0, k = 0, minCos = double.MaxValue;
-                int index = -1;
-
-                // Second shape
-                do
+            if (shapes.Count > 2) {
+                #region STANDARD
+                if (standardToolStripMenuItem.Checked)
                 {
-                    foreach (Shape i in shapes) { 
-                            if (MinCos(0, i.X - shapes[startShape].X, -20000, i.Y - shapes[startShape].Y) < minCos) {
-                                    minCos = MinCos(0, i.X - shapes[startShape].X, -20000, i.Y - shapes[startShape].Y);
-                                    index = shapes.IndexOf(i);
+                    //Standard Algorithm
+                    int cntL, cntR;
+                    foreach (Shape i in shapes)
+                        i.DrawLine = false;
+
+                    for (int i = 0; i < shapes.Count; i++)
+                    {
+                        for (int j = i + 1; j < shapes.Count; j++)
+                        {
+                            cntL = cntR = 0;
+                            float k = ((float)shapes[j].Y - shapes[i].Y) / ((float)shapes[j].X - shapes[i].X);
+                            float b = shapes[i].Y - k * shapes[i].X;
+                            for (int l = 0; l < shapes.Count; l++)
+                            {
+                                if (l != i && l != j)
+                                {
+                                    if (shapes[l].Y > k * shapes[l].X + b)
+                                        cntR++;
+                                    else
+                                        cntL++;
+                                }
                             }
-                            
-                        } 
-                        e.Graphics.DrawLine(pen, shapes[startShape].X, shapes[startShape].Y, shapes[index].X, shapes[index].Y);
+                            if (cntR * cntL == 0 && shapes[i].X != shapes[j].X)
+                            {
+                                e.Graphics.DrawLine(pen, shapes[i].X, shapes[i].Y, shapes[j].X, shapes[j].Y);
+                                shapes[i].DrawLine = true;
+                                shapes[j].DrawLine = true;
+                            }
+                        }
+                    }
+                }
+                #endregion
+
+                #region JARVIS
+                else if (jarvisToolStripMenuItem.Checked)
+                {
+                    // Jarvis Algorithm
+                    foreach (Shape i in shapes)
+                        i.DrawLine = false;
+
+                    // First shape
+                    int startShape = 0;
+                    foreach (Shape i in shapes)
+                    {
+                        if (i.X <= shapes[startShape].X)
+                            startShape = shapes.IndexOf(i);
+                    }
+
+                    // Second shape
+                    double minCos = 1;
+                    int index = -1;
+                    foreach (Shape i in shapes)
+                    {
+                        if (i == shapes[startShape]) continue;
+                        if (MinCos(0, i.X - shapes[startShape].X, -20000, i.Y - shapes[startShape].Y) < minCos)
+                        {
+                            minCos = MinCos(0, i.X - shapes[startShape].X, -20000, i.Y - shapes[startShape].Y);
+                            index = shapes.IndexOf(i);
+                        }
+                    }
                     shapes[startShape].DrawLine = shapes[index].DrawLine = true;
+                    e.Graphics.DrawLine(pen, shapes[startShape].X, shapes[startShape].Y, shapes[index].X, shapes[index].Y);
 
-                } while (index != startShape);
+                    // Last shapes
+                    double vx = shapes[startShape].X - shapes[index].X;
+                    double vy = shapes[startShape].Y - shapes[index].Y;
+                    int curShape = index;
+                    do
+                    {
+                        minCos = 1;
+                        for (int i = 0; i < shapes.Count; i++)
+                        {
+                            if (shapes[i] == shapes[curShape] || shapes[i] == shapes[index]) continue;
 
-
-
+                            if (MinCos(vx, shapes[i].X - shapes[curShape].X, vy, shapes[i].Y - shapes[curShape].Y) < minCos)
+                            {
+                                minCos = MinCos(vx, shapes[i].X - shapes[curShape].X, vy, shapes[i].Y - shapes[curShape].Y);
+                                index = i;
+                            }
+                        }
+                        e.Graphics.DrawLine(pen, shapes[curShape].X, shapes[curShape].Y, shapes[index].X, shapes[index].Y);
+                        shapes[curShape].DrawLine = shapes[index].DrawLine = true;
+                        vx = shapes[curShape].X - shapes[index].X;
+                        vy = shapes[curShape].Y - shapes[index].Y;
+                        curShape = index;
+                    } while (index != startShape);
+                }
+                #endregion
             }
+
             foreach (Shape i in shapes)
                 i.Draw(e.Graphics);
         }
@@ -227,10 +201,18 @@ namespace Polygon {
             }
         }
 
-        private void ToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void FigureToolStripMenuItem_Click(object sender, EventArgs e) {
             circleToolStripMenuItem.CheckState = CheckState.Checked;
             ((ToolStripMenuItem)sender).Checked = true;
             foreach (ToolStripMenuItem item in figureTypeToolStripMenuItem.DropDownItems)
+                if (item != null && item != (ToolStripMenuItem)sender)
+                    item.Checked = false;
+        }
+
+        private void AlgorithmToolStripMenuItem_Click(object sender, EventArgs e) {
+            jarvisToolStripMenuItem.CheckState = CheckState.Checked;
+            ((ToolStripMenuItem)sender).Checked = true;
+            foreach (ToolStripMenuItem item in algorithmTypeToolStripMenuItem.DropDownItems)
                 if (item != null && item != (ToolStripMenuItem)sender)
                     item.Checked = false;
         }
