@@ -112,43 +112,35 @@ namespace Polygon {
             //}
 
             // Jarvis Algorithm
-            if (shapes.Count >= 3) {
-               int startShape = 0;
-               foreach (Shape i in shapes) 
+            if (shapes.Count >= 3)
+            {
+                // First shape
+                int startShape = 0; 
+                foreach (Shape i in shapes)
                     if (i.X <= shapes[startShape].X)
                         startShape = shapes.IndexOf(i);
-                e.Graphics.DrawLine(pen, shapes[startShape].X, shapes[startShape].Y, shapes[startShape].X, shapes[startShape].Y - 200000);
-                shapes[startShape].DrawLine = true;
-                int curShape = startShape;
+                e.Graphics.DrawLine(pen, shapes[startShape].X, shapes[startShape].Y, shapes[startShape].X, shapes[startShape].Y - 20000);
+
+
                 double x = 0, y = 0, k = 0, minCos = double.MaxValue;
-                int index = 0;
-                double vx = 0, vy = -2e5;
+                int index = -1;
+
+                // Second shape
                 do
                 {
-                    x = y = 0;
-                    minCos = double.MaxValue;
-                    foreach (Shape i in shapes)
-                    {
-                        // vector
-                        x = i.X - shapes[curShape].X;
-                        y = i.Y + shapes[curShape].Y;
-                        if (MinCos(vx, vy, x, y) < minCos && i != shapes[curShape])
-                        {
-                            minCos = MinCos(vx, vy, x, y);
-                            index = shapes.IndexOf(i);
-                            vx = shapes[curShape].X - i.X;
-                            vy = +shapes[curShape].Y - i.Y;
-                        }
-                        // e.Graphics.DrawLine(pen, shapes[curShape].X, shapes[curShape].Y, i.X, i.Y);
-                        // shapes[curShape].DrawLine = i.DrawLine = true;
-                        //k++;
-                        //curShape = shapes.IndexOf(i);
-                    }
-                    e.Graphics.DrawLine(pen, shapes[curShape].X, shapes[curShape].Y, shapes[index].X, shapes[index].Y);
-                    shapes[curShape].DrawLine = shapes[index].DrawLine = true;
-                    curShape = index;
-                    k++;
-                } while (k!=1000);
+                    foreach (Shape i in shapes) { 
+                            if (MinCos(0, i.X - shapes[startShape].X, -20000, i.Y - shapes[startShape].Y) < minCos) {
+                                    minCos = MinCos(0, i.X - shapes[startShape].X, -20000, i.Y - shapes[startShape].Y);
+                                    index = shapes.IndexOf(i);
+                            }
+                            
+                        } 
+                        e.Graphics.DrawLine(pen, shapes[startShape].X, shapes[startShape].Y, shapes[index].X, shapes[index].Y);
+                    shapes[startShape].DrawLine = shapes[index].DrawLine = true;
+
+                } while (index != startShape);
+
+
 
             }
             foreach (Shape i in shapes)
@@ -156,7 +148,7 @@ namespace Polygon {
         }
 
         private double MinCos(double x1, double x2, double y1, double y2) {
-            return Math.Abs(x1 * x2 + y1 + y2) / (Math.Sqrt(x1 * x1 + y1 * y1) + Math.Sqrt(x2 * x2 + y2 * y2));
+            return (x1 * x2 + y1 * y2) / (Math.Sqrt(x1 * x1 + y1 * y1) * Math.Sqrt(x2 * x2 + y2 * y2));
         }
 
         private void Form_MouseDown(object sender, MouseEventArgs e) {
