@@ -31,8 +31,10 @@ namespace Polygon
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.efficiencyGraphicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.figureTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.circleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.squareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,7 +42,7 @@ namespace Polygon
             this.algorithmTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jarvisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.standardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,6 +50,7 @@ namespace Polygon
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingsToolStripMenuItem,
             this.figureTypeToolStripMenuItem,
             this.algorithmTypeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -55,6 +58,28 @@ namespace Polygon
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.changeColorToolStripMenuItem,
+            this.efficiencyGraphicToolStripMenuItem});
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            // 
+            // changeColorToolStripMenuItem
+            // 
+            this.changeColorToolStripMenuItem.Name = "changeColorToolStripMenuItem";
+            this.changeColorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.changeColorToolStripMenuItem.Text = "Change Color";
+            this.changeColorToolStripMenuItem.Click += new System.EventHandler(this.changeColorToolStripMenuItem_Click);
+            // 
+            // efficiencyGraphicToolStripMenuItem
+            // 
+            this.efficiencyGraphicToolStripMenuItem.Name = "efficiencyGraphicToolStripMenuItem";
+            this.efficiencyGraphicToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.efficiencyGraphicToolStripMenuItem.Text = "Efficiency Graphic";
             // 
             // figureTypeToolStripMenuItem
             // 
@@ -105,21 +130,16 @@ namespace Polygon
             this.jarvisToolStripMenuItem.CheckOnClick = true;
             this.jarvisToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.jarvisToolStripMenuItem.Name = "jarvisToolStripMenuItem";
-            this.jarvisToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.jarvisToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.jarvisToolStripMenuItem.Text = "Jarvis";
             this.jarvisToolStripMenuItem.Click += new System.EventHandler(this.AlgorithmToolStripMenuItem_Click);
             // 
             // standardToolStripMenuItem
             // 
             this.standardToolStripMenuItem.Name = "standardToolStripMenuItem";
-            this.standardToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.standardToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.standardToolStripMenuItem.Text = "Standard";
             this.standardToolStripMenuItem.Click += new System.EventHandler(this.AlgorithmToolStripMenuItem_Click);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // Form1
             // 
@@ -149,10 +169,13 @@ namespace Polygon
         private System.Windows.Forms.ToolStripMenuItem circleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem squareToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem triangleToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem algorithmTypeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem jarvisToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem standardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem efficiencyGraphicToolStripMenuItem;
+        private System.Windows.Forms.ColorDialog colorDialog1;
+        public System.Windows.Forms.ToolStripMenuItem changeColorToolStripMenuItem;
     }
 }
 

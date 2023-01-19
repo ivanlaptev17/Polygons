@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 
 namespace Polygon {
-    abstract class Shape {
+    public abstract class Shape {
         protected static int R;
         protected static Color C;
         protected int x;
@@ -42,6 +42,8 @@ namespace Polygon {
 
         public abstract int Y { get; set; }
 
+        public abstract Color Color { get; set; }
+
         public abstract void Draw(Graphics G);
 
         public abstract bool IsInside(int x, int y);
@@ -61,6 +63,9 @@ namespace Polygon {
         public override int X { get => x; set => x = value; }
 
         public override int Y { get => y; set => y = value; }
+
+        public override Color Color { get => C; set => C = value; }
+
 
         public override void Draw(Graphics G) {
             SolidBrush brush = new SolidBrush(C);
@@ -93,6 +98,8 @@ namespace Polygon {
 
         public override int Y { get => y; set => y = value; }
 
+        public override Color Color { get => C; set => C = value; }
+
         public override void Draw(Graphics G) {
             SolidBrush brush = new SolidBrush(C);
             points[0] = new Point(x, y - R);
@@ -123,6 +130,7 @@ namespace Polygon {
         public override int X { get => x; set => x = value; }
 
         public override int Y { get => y; set => y = value; }
+        public override Color Color { get => C; set => C = value; }
 
         public override void Draw(Graphics G) {
             SolidBrush brush = new SolidBrush(C);
