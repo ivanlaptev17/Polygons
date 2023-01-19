@@ -12,6 +12,9 @@ namespace Polygon {
     public partial class Form1 : Form {
         List<Shape> shapes;
         bool flag;
+        bool hull;
+        int mouse_x;
+        int mouse_y;
 
         public Form1() {
             InitializeComponent();
@@ -150,7 +153,14 @@ namespace Polygon {
                         Refresh();
                         if (!shapes[shapes.Count - 1].DrawLine) {
                             shapes.RemoveAt(shapes.Count - 1);
+                            mouse_x = e.X;
+                            mouse_y = e.Y;
                             flag = true;
+                            hull = true;
+                            foreach(Shape i in shapes)
+                            {
+                                i.IsDragged = true;
+                            }
                         }
                         for (int i = 0; i < shapes.Count; i++) {
                             if (!shapes[i].DrawLine) {
@@ -174,10 +184,23 @@ namespace Polygon {
 
         private void Form_MouseMove(object sender, MouseEventArgs e) {
             if (flag) {
-                foreach (Shape i in shapes) {
-                    if (i.IsDragged) {
-                        i.X = e.X + i.Dx;
-                        i.Y = e.Y + i.Dy;
+                if (hull)
+                {
+                    foreach (Shape i in shapes)
+                    {
+                        i.X = e.X - mouse_x + i.X;
+                        i.Y = e.Y - mouse_y + i.Y;
+                    }
+                }
+                else
+                {
+                    foreach (Shape i in shapes)
+                    {
+                        if (i.IsDragged)
+                        {
+                            i.X = e.X + i.Dx;
+                            i.Y = e.Y + i.Dy;
+                        }
                     }
                 }
                 Refresh();
@@ -187,8 +210,9 @@ namespace Polygon {
         private void Form_MouseUp(object sender, MouseEventArgs e) {
             if (flag) {
                 flag = false;
-                foreach (Shape i in shapes)
-                    i.IsDragged = false;
+                    foreach (Shape i in shapes)
+                       i.IsDragged = false;
+                    hull = false;
                 if (shapes.Count >= 3) {
                     for (int i = 0; i < shapes.Count; i++) {
                         if (!shapes[i].DrawLine) {
