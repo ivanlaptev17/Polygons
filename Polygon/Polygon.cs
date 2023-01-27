@@ -262,17 +262,37 @@ namespace Polygon
             jarvisToolStripMenuItem.Checked = true;
             standardToolStripMenuItem.Checked = false;
 
-            int ticks = 0;
-            PointPairList list = new PointPairList();
-            for (int i = 1; i <= 1000; i++)
+            //jarvis
+            PointPairList listJar = new PointPairList();
+            for (int i = 1; i <= 10; i++)
             {
                 clock.Start();
-                shapes.Add(new Circle(rnd.Next(), rnd.Next()));
-                list.Add(i, ticks+=(int)clock.ElapsedTicks);
+                for (int j = 1; j <= 100*i; j++)
+                    shapes.Add(new Circle(rnd.Next(), rnd.Next()));
+                listJar.Add(clock.ElapsedTicks, i * 100);
                 clock.Reset();
             }
-            Form2 f2 = new Form2(list);
+
+            shapes.Clear();
+
+            jarvisToolStripMenuItem.Checked = false;
+            standardToolStripMenuItem.Checked = true;
+
+            //standrard 
+            PointPairList listStandard = new PointPairList();
+            for (int i = 1; i <= 10; i++)
+            {
+                clock.Start();
+                for (int j = 1; j <= 100 * i; j++)
+                    shapes.Add(new Circle(rnd.Next(), rnd.Next()));
+                listStandard.Add(clock.ElapsedTicks, i * 100);
+                clock.Reset();
+            }
+
+            Form2 f2 = new Form2(listJar, listStandard);
             f2.ShowDialog();
+
+            shapes.Clear();
         }
     }
 }

@@ -14,41 +14,73 @@ namespace Polygon
 {
     public partial class Form2 : Form
     {
-        PointPairList points;
+        PointPairList pointsJar;
+        PointPairList pointsStandard;
 
-        public Form2(PointPairList list) 
+        public Form2(PointPairList listJar, PointPairList listStandard) 
         {
             InitializeComponent();
-            points = list;
+            pointsJar = listJar;
+            pointsStandard = listStandard;
         }
 
-        private void DrawGraphJarvis()
+        private void DrawGraphs()
         {
             label3.Text = "";
             label4.Text = "";
-            for (int i = 0; i<points.Count; i++)
+            label5.Text = "";
+            label6.Text = "";
+
+            for (int i = 0; i<pointsJar.Count; i++)
             {
-                label3.Text += points[i].X.ToString() + " ";
-                label4.Text += points[i].Y.ToString() + " ";
+                label3.Text += pointsJar[i].X.ToString() + " ";
+                label4.Text += pointsJar[i].Y.ToString() + "  ";
             }
-            
+
+
+            for (int i = 0; i < pointsStandard.Count; i++)
+            {
+                label5.Text += pointsStandard[i].X.ToString() + " ";
+                label6.Text += pointsStandard[i].Y.ToString() + "  ";
+            }
+
             GraphPane pane = zedGraphControl1.GraphPane;
-            pane.Title.Text = "Jarvis Algorithm";
-            pane.XAxis.Title.Text = "Number of figure";
-            pane.YAxis.Title.Text = "Ticks";
+            pane.Title.Text = "Comparison Graph";
+            pane.XAxis.Title.Text = "Ticks";
+            pane.YAxis.Title.Text = "Number of figure";
             pane.CurveList.Clear();
 
-
-            pane.AddCurve("Jarvis", points, Color.Blue, SymbolType.None);
+            pane.AddCurve("Jarvis", pointsJar, Color.Blue, SymbolType.None);
+            pane.AddCurve("Standard", pointsStandard, Color.Red, SymbolType.None);
 
             zedGraphControl1.AxisChange();
 
             zedGraphControl1.Invalidate();
+
+            double jarTicksSum = 0.0;
+            foreach (var i in pointsJar)
+                jarTicksSum += i.X;
+
+            double standardTicksSum = 0.0;
+            foreach (var i in pointsStandard)
+                standardTicksSum += i.X;
+
+            MessageBox.Show($"{jarTicksSum / standardTicksSum}");
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DrawGraphJarvis();
+            DrawGraphs();
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
