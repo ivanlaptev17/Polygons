@@ -76,3 +76,4 @@ C:\Users\chels\Desktop\repos\Polygon\bin\Debug\sv\ZedGraph.resources.dll
 C:\Users\chels\Desktop\repos\Polygon\bin\Debug\tr\ZedGraph.resources.dll
 C:\Users\chels\Desktop\repos\Polygon\bin\Debug\zh-cn\ZedGraph.resources.dll
 C:\Users\chels\Desktop\repos\Polygon\bin\Debug\zh-tw\ZedGraph.resources.dll
+C:\Users\chels\Desktop\repos\Polygon\obj\Debug\Polygon.RadiusChanger.resources

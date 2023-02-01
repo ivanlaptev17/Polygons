@@ -10,9 +10,9 @@ using System.Windows.Forms;
 using ZedGraph;
 using System.Diagnostics;
 
-namespace Polygon 
+namespace Polygon
 {
-    public partial class Polygon : Form 
+    public partial class Polygon : Form
     {
         public List<Shape> shapes;
         bool flag;
@@ -32,7 +32,7 @@ namespace Polygon
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             Pen pen = new Pen(Color.Black, 3);
 
-            if (shapes.Count > 2) 
+            if (shapes.Count > 2)
             {
                 #region STANDARD
                 if (standardToolStripMenuItem.Checked)
@@ -131,18 +131,18 @@ namespace Polygon
                 i.Draw(e.Graphics);
         }
 
-        private double MinCos(double x1, double x2, double y1, double y2) 
+        private double MinCos(double x1, double x2, double y1, double y2)
         {
             return (x1 * x2 + y1 * y2) / (Math.Sqrt(x1 * x1 + y1 * y1) * Math.Sqrt(x2 * x2 + y2 * y2));
         }
 
-        private void Form_MouseDown(object sender, MouseEventArgs e) 
+        private void Form_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left) 
+            if (e.Button == MouseButtons.Left)
             {
-                foreach (Shape i in shapes) 
+                foreach (Shape i in shapes)
                 {
-                    if (i.IsInside(e.X, e.Y)) 
+                    if (i.IsInside(e.X, e.Y))
                     {
                         flag = true;
                         i.Dx = i.X - e.X;
@@ -150,31 +150,41 @@ namespace Polygon
                         i.IsDragged = true;
                     }
                 }
-                if (!flag) {
-                    if (circleToolStripMenuItem.Checked) {
+                if (!flag)
+                {
+                    if (circleToolStripMenuItem.Checked)
+                    {
                         Circle circle = new Circle(e.X, e.Y);
                         shapes.Add(circle);
-                    } else if (squareToolStripMenuItem.Checked) {
+                    }
+                    else if (squareToolStripMenuItem.Checked)
+                    {
                         Square square = new Square(e.X, e.Y);
                         shapes.Add(square);
-                    } else if (triangleToolStripMenuItem.Checked) {
+                    }
+                    else if (triangleToolStripMenuItem.Checked)
+                    {
                         Triangle triangle = new Triangle(e.X, e.Y);
                         shapes.Add(triangle);
                     }
-                    if (shapes.Count >= 3) {
+                    if (shapes.Count >= 3)
+                    {
                         Refresh();
-                        if (!shapes[shapes.Count - 1].DrawLine) {
+                        if (!shapes[shapes.Count - 1].DrawLine)
+                        {
                             shapes.RemoveAt(shapes.Count - 1);
                             flag = true;
-                            foreach(Shape i in shapes)
+                            foreach (Shape i in shapes)
                             {
                                 i.IsDragged = true;
                                 i.Dx = i.X - e.X;
                                 i.Dy = i.Y - e.Y;
                             }
                         }
-                        for (int i = 0; i < shapes.Count; i++) {
-                            if (!shapes[i].DrawLine) {
+                        for (int i = 0; i < shapes.Count; i++)
+                        {
+                            if (!shapes[i].DrawLine)
+                            {
                                 shapes.RemoveAt(i);
                                 i--;
                             }
@@ -182,9 +192,9 @@ namespace Polygon
                     }
                 }
             }
-            if (e.Button == MouseButtons.Right) 
-                for (int i = shapes.Count - 1; i >= 0; i--) 
-                    if (shapes[i].IsInside(e.X, e.Y)) 
+            if (e.Button == MouseButtons.Right)
+                for (int i = shapes.Count - 1; i >= 0; i--)
+                    if (shapes[i].IsInside(e.X, e.Y))
                     {
                         shapes.RemoveAt(i);
                         break;
@@ -192,7 +202,7 @@ namespace Polygon
             Refresh();
         }
 
-        private void Form_MouseMove(object sender, MouseEventArgs e) 
+        private void Form_MouseMove(object sender, MouseEventArgs e)
         {
             if (flag)
             {
@@ -206,25 +216,25 @@ namespace Polygon
             }
         }
 
-        private void Form_MouseUp(object sender, MouseEventArgs e) 
+        private void Form_MouseUp(object sender, MouseEventArgs e)
         {
-            if (flag) 
+            if (flag)
             {
                 flag = false;
                 foreach (Shape i in shapes)
                     i.IsDragged = false;
-                if (shapes.Count >= 3) 
-                    for (int i = 0; i < shapes.Count; i++) 
-                        if (!shapes[i].DrawLine) 
+                if (shapes.Count >= 3)
+                    for (int i = 0; i < shapes.Count; i++)
+                        if (!shapes[i].DrawLine)
                         {
                             shapes.RemoveAt(i);
                             i--;
                         }
-                    Refresh();
+                Refresh();
             }
         }
 
-        private void FigureToolStripMenuItem_Click(object sender, EventArgs e) 
+        private void FigureToolStripMenuItem_Click(object sender, EventArgs e)
         {
             circleToolStripMenuItem.CheckState = CheckState.Checked;
             ((ToolStripMenuItem)sender).Checked = true;
@@ -233,7 +243,7 @@ namespace Polygon
                     item.Checked = false;
         }
 
-        private void AlgorithmToolStripMenuItem_Click(object sender, EventArgs e) 
+        private void AlgorithmToolStripMenuItem_Click(object sender, EventArgs e)
         {
             jarvisToolStripMenuItem.CheckState = CheckState.Checked;
             ((ToolStripMenuItem)sender).Checked = true;
@@ -248,8 +258,8 @@ namespace Polygon
             {
                 DialogResult result = colorDialog1.ShowDialog();
                 if (result == DialogResult.OK)
-                 foreach(Shape i in shapes)
-                     i.Color = colorDialog1.Color;
+                    foreach (Shape i in shapes)
+                        i.Color = colorDialog1.Color;
                 Refresh();
             }
         }
@@ -267,7 +277,7 @@ namespace Polygon
             for (int i = 1; i <= 10; i++)
             {
                 clock.Start();
-                for (int j = 1; j <= 100*i; j++)
+                for (int j = 1; j <= 100 * i; j++)
                     shapes.Add(new Circle(rnd.Next(), rnd.Next()));
                 listJar.Add(clock.ElapsedTicks, i * 100);
                 clock.Reset();
@@ -293,6 +303,19 @@ namespace Polygon
             f2.ShowDialog();
 
             shapes.Clear();
+        }
+
+        private void UpdateRadius(object sender, RadiusEventArgs e)
+        {
+            Shape.R = e.Radius;
+            Refresh();
+        }
+
+        private void changeRadiusToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RadiusChanger radiusChanger = new RadiusChanger();
+            radiusChanger.RadiusChanged += new RadiusDelegate(UpdateRadius);
+            radiusChanger.Show();
         }
     }
 }

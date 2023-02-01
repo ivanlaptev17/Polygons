@@ -43,6 +43,7 @@ namespace Polygon
             this.jarvisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.standardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.changeRadiusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,7 +64,8 @@ namespace Polygon
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.changeColorToolStripMenuItem,
-            this.efficiencyGraphicToolStripMenuItem});
+            this.efficiencyGraphicToolStripMenuItem,
+            this.changeRadiusToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
@@ -142,6 +144,13 @@ namespace Polygon
             this.standardToolStripMenuItem.Text = "Standard";
             this.standardToolStripMenuItem.Click += new System.EventHandler(this.AlgorithmToolStripMenuItem_Click);
             // 
+            // changeRadiusToolStripMenuItem
+            // 
+            this.changeRadiusToolStripMenuItem.Name = "changeRadiusToolStripMenuItem";
+            this.changeRadiusToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.changeRadiusToolStripMenuItem.Text = "Change Radius";
+            this.changeRadiusToolStripMenuItem.Click += new System.EventHandler(this.changeRadiusToolStripMenuItem_Click);
+            // 
             // Polygon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -177,6 +186,7 @@ namespace Polygon
         private System.Windows.Forms.ToolStripMenuItem efficiencyGraphicToolStripMenuItem;
         private System.Windows.Forms.ColorDialog colorDialog1;
         public System.Windows.Forms.ToolStripMenuItem changeColorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changeRadiusToolStripMenuItem;
     }
 }
 
