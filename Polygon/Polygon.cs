@@ -333,7 +333,7 @@ namespace Polygon
             if (radiusChanger.WindowState == FormWindowState.Minimized || !radiusChanger.TopMost)
             {
                 radiusChanger.WindowState = FormWindowState.Normal;
-                radiusChanger.TopMost = true;
+                radiusChanger.Activate();
             }
             radiusChanger.RadiusChanged += new RadiusDelegate(UpdateRadius);
             radiusChanger.Show();
