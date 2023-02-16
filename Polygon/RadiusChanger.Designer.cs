@@ -36,6 +36,7 @@ namespace Polygon
             // trackBar1
             // 
             this.trackBar1.Location = new System.Drawing.Point(10, 12);
+            this.trackBar1.Maximum = 100;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(404, 45);
             this.trackBar1.TabIndex = 0;
@@ -49,6 +50,7 @@ namespace Polygon
             this.Controls.Add(this.trackBar1);
             this.Name = "RadiusChanger";
             this.Text = "RadiusChanger";
+            this.Load += new System.EventHandler(this.RadiusChanger_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

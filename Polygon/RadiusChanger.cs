@@ -16,5 +16,10 @@ namespace Polygon
         {
             RadiusChanged(this, new RadiusEventArgs(trackBar1.Value));
         }
+
+        private void RadiusChanger_Load(object sender, EventArgs e)
+        {
+            trackBar1.Value = Shape.R;
+        }
     }
 }

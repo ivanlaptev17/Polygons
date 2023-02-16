@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ZedGraph;
-using System.Diagnostics;
 
 namespace Polygon
 {
@@ -17,7 +12,9 @@ namespace Polygon
         public List<Shape> shapes;
         bool flag;
         static Random rnd;
-        Stopwatch clock = new Stopwatch();
+        RadiusChanger radiusChanger;
+        bool graph;
+
 
         public Polygon()
         {
@@ -61,13 +58,15 @@ namespace Polygon
                             }
                             if (cntR * cntL == 0 && shapes[i].X != shapes[j].X)
                             {
-                                e.Graphics.DrawLine(pen, shapes[i].X, shapes[i].Y, shapes[j].X, shapes[j].Y);
+                                if (!graph)
+                                    e.Graphics.DrawLine(pen, shapes[i].X, shapes[i].Y, shapes[j].X, shapes[j].Y);
                                 shapes[i].DrawLine = true;
                                 shapes[j].DrawLine = true;
                             }
                         }
                     }
                 }
+
                 #endregion
 
                 #region JARVIS
@@ -98,7 +97,8 @@ namespace Polygon
                         }
                     }
                     shapes[startShape].DrawLine = shapes[index].DrawLine = true;
-                    e.Graphics.DrawLine(pen, shapes[startShape].X, shapes[startShape].Y, shapes[index].X, shapes[index].Y);
+                    if (!graph)
+                        e.Graphics.DrawLine(pen, shapes[startShape].X, shapes[startShape].Y, shapes[index].X, shapes[index].Y);
 
                     // Last shapes
                     double vx = shapes[startShape].X - shapes[index].X;
@@ -117,7 +117,8 @@ namespace Polygon
                                 index = i;
                             }
                         }
-                        e.Graphics.DrawLine(pen, shapes[curShape].X, shapes[curShape].Y, shapes[index].X, shapes[index].Y);
+                        if (!graph)
+                            e.Graphics.DrawLine(pen, shapes[curShape].X, shapes[curShape].Y, shapes[index].X, shapes[index].Y);
                         shapes[curShape].DrawLine = shapes[index].DrawLine = true;
                         vx = shapes[curShape].X - shapes[index].X;
                         vy = shapes[curShape].Y - shapes[index].Y;
@@ -126,9 +127,9 @@ namespace Polygon
                 }
                 #endregion
             }
-
-            foreach (Shape i in shapes)
-                i.Draw(e.Graphics);
+            if (!graph)
+                foreach (Shape i in shapes)
+                    i.Draw(e.Graphics);
         }
 
         private double MinCos(double x1, double x2, double y1, double y2)
@@ -267,42 +268,65 @@ namespace Polygon
         private void efficiencyGraphicToolStripMenuItem_Click(object sender, EventArgs e)
         {
             shapes.Clear();
-            Refresh();
 
-            jarvisToolStripMenuItem.Checked = true;
-            standardToolStripMenuItem.Checked = false;
+            graph = true;
 
-            //jarvis
-            PointPairList listJar = new PointPairList();
-            for (int i = 1; i <= 10; i++)
-            {
-                clock.Start();
-                for (int j = 1; j <= 100 * i; j++)
-                    shapes.Add(new Circle(rnd.Next(), rnd.Next()));
-                listJar.Add(clock.ElapsedTicks, i * 100);
-                clock.Reset();
-            }
+            for (int i = 0; i < 4; i++)
+                shapes.Add(new Circle(rnd.Next(-100, 100), rnd.Next(-100, 100)));
 
-            shapes.Clear();
+            Stopwatch clock = new Stopwatch();
 
             jarvisToolStripMenuItem.Checked = false;
             standardToolStripMenuItem.Checked = true;
 
-            //standrard 
             PointPairList listStandard = new PointPairList();
             for (int i = 1; i <= 10; i++)
             {
+                for (int j = 1; j <= 10 * i; j++)
+                    shapes.Add(new Circle(rnd.Next(-100, 100), rnd.Next(-100, 100)));
                 clock.Start();
-                for (int j = 1; j <= 100 * i; j++)
-                    shapes.Add(new Circle(rnd.Next(), rnd.Next()));
-                listStandard.Add(clock.ElapsedTicks, i * 100);
+                Refresh();
+                clock.Stop();
+                listStandard.Add(i * 10, clock.ElapsedTicks);
                 clock.Reset();
             }
+
+            shapes.Clear();
+
+            for (int i = 0; i < 4; i++)
+                shapes.Add(new Circle(rnd.Next(-100, 100), rnd.Next(-100, 100)));
+
+            //jarvis
+
+
+            jarvisToolStripMenuItem.Checked = true;
+            standardToolStripMenuItem.Checked = false;
+
+            PointPairList listJar = new PointPairList();
+            for (int i = 1; i <= 10; i++)
+            {
+                for (int j = 1; j <= 10 * i; j++)
+                    shapes.Add(new Circle(rnd.Next(-100, 100), rnd.Next(-100, 100)));
+                clock.Start();
+                Refresh();
+                clock.Stop();
+                listJar.Add(i * 10, clock.ElapsedTicks);
+                clock.Reset();
+            }
+            shapes.Clear();
+
+
+
+
+
+            //standrard 
+            
 
             Form2 f2 = new Form2(listJar, listStandard);
             f2.ShowDialog();
 
-            shapes.Clear();
+            Refresh();
+            graph = false;
         }
 
         private void UpdateRadius(object sender, RadiusEventArgs e)
@@ -313,7 +337,13 @@ namespace Polygon
 
         private void changeRadiusToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RadiusChanger radiusChanger = new RadiusChanger();
+            if (radiusChanger == null || radiusChanger.IsDisposed)
+                radiusChanger = new RadiusChanger();
+            if (radiusChanger.WindowState == FormWindowState.Minimized || !radiusChanger.TopMost)
+            {
+                radiusChanger.WindowState = FormWindowState.Normal;
+                radiusChanger.TopMost = true;
+            }
             radiusChanger.RadiusChanged += new RadiusDelegate(UpdateRadius);
             radiusChanger.Show();
         }
