@@ -126,17 +126,17 @@ namespace Polygon
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(51, 4);
+            this.dataGridView1.Location = new System.Drawing.Point(51, 88);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(351, 52);
+            this.dataGridView1.Size = new System.Drawing.Size(351, 78);
             this.dataGridView1.TabIndex = 11;
             // 
             // dataGridView2
             // 
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(51, 66);
+            this.dataGridView2.Location = new System.Drawing.Point(51, 4);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(351, 52);
+            this.dataGridView2.Size = new System.Drawing.Size(351, 78);
             this.dataGridView2.TabIndex = 12;
             // 
             // Form2

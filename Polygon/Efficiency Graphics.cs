@@ -22,13 +22,9 @@ namespace Polygon
         {
             for (int i = 0; i < 10; i++)
             {
-                dataGridView1.Columns[i].Width = 20;
-                dataGridView2.Columns[i].Width = 20;
+                dataGridView1.Columns[i].Width = 40;
+                dataGridView2.Columns[i].Width = 40;
             }
-            //dataGridView1.Rows.Clear();
-            //dataGridView1.Columns.Clear();
-            //dataGridView2.Rows.Clear();
-            //dataGridView2.Columns.Clear();
 
             for (int i = 0; i < 10; i++)
             {
@@ -45,12 +41,15 @@ namespace Polygon
 
             GraphPane pane = zedGraphControl1.GraphPane;
             pane.Title.Text = "Comparison Graph";
-            pane.XAxis.Title.Text = "Number of figure";
-            pane.YAxis.Title.Text = "Milliseconds";
+            pane.XAxis.Title.Text = "Number of figures";
+            pane.YAxis.Title.Text = "Ticks";
             pane.CurveList.Clear();
 
-            pane.AddCurve("Jarvis", pointsJar, Color.Blue, SymbolType.None);
-            pane.AddCurve("Standard", pointsStandard, Color.Red, SymbolType.None);
+            pane.AddCurve("Jarvis", pointsJar, Color.Blue, SymbolType.Circle);
+            pane.AddCurve("Standard", pointsStandard, Color.Red, SymbolType.Circle);
+
+            zedGraphControl1.IsShowHScrollBar = true;
+            zedGraphControl1.IsAutoScrollRange = true;
 
             zedGraphControl1.AxisChange();
 

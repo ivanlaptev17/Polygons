@@ -14,7 +14,7 @@ namespace Polygon
         static Random rnd;
         RadiusChanger radiusChanger;
         bool graph;
-
+        Stopwatch clock;
 
         public Polygon()
         {
@@ -271,10 +271,10 @@ namespace Polygon
 
             graph = true;
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 3; i++)
                 shapes.Add(new Circle(rnd.Next(-100, 100), rnd.Next(-100, 100)));
 
-            Stopwatch clock = new Stopwatch();
+            clock = new Stopwatch();
 
             jarvisToolStripMenuItem.Checked = false;
             standardToolStripMenuItem.Checked = true;
@@ -293,11 +293,8 @@ namespace Polygon
 
             shapes.Clear();
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 3; i++)
                 shapes.Add(new Circle(rnd.Next(-100, 100), rnd.Next(-100, 100)));
-
-            //jarvis
-
 
             jarvisToolStripMenuItem.Checked = true;
             standardToolStripMenuItem.Checked = false;
@@ -313,14 +310,8 @@ namespace Polygon
                 listJar.Add(i * 10, clock.ElapsedTicks);
                 clock.Reset();
             }
-            shapes.Clear();
 
-
-
-
-
-            //standrard 
-            
+            shapes.Clear();            
 
             Form2 f2 = new Form2(listJar, listStandard);
             f2.ShowDialog();
