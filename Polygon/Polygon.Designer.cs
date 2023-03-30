@@ -32,9 +32,15 @@ namespace Polygon
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.efficiencyGraphicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeRadiusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.figureTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.circleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.squareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,7 +49,8 @@ namespace Polygon
             this.jarvisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.standardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.changeRadiusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,6 +58,7 @@ namespace Polygon
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.figureTypeToolStripMenuItem,
             this.algorithmTypeToolStripMenuItem});
@@ -59,6 +67,45 @@ namespace Polygon
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveToolStripMenuItem1,
+            this.saveAsToolStripMenuItem,
+            this.newToolStripMenuItem,
+            this.openToolStripMenuItem});
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.saveToolStripMenuItem.Text = "File";
+            // 
+            // saveToolStripMenuItem1
+            // 
+            this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
+            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem1.Text = "Save";
+            this.saveToolStripMenuItem1.Click += new System.EventHandler(this.saveToolStripMenuItem1_Click);
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveAsToolStripMenuItem.Text = "Save as";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+            // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -73,16 +120,23 @@ namespace Polygon
             // changeColorToolStripMenuItem
             // 
             this.changeColorToolStripMenuItem.Name = "changeColorToolStripMenuItem";
-            this.changeColorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.changeColorToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.changeColorToolStripMenuItem.Text = "Change Color";
             this.changeColorToolStripMenuItem.Click += new System.EventHandler(this.changeColorToolStripMenuItem_Click);
             // 
             // efficiencyGraphicToolStripMenuItem
             // 
             this.efficiencyGraphicToolStripMenuItem.Name = "efficiencyGraphicToolStripMenuItem";
-            this.efficiencyGraphicToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.efficiencyGraphicToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.efficiencyGraphicToolStripMenuItem.Text = "Efficiency Graphic";
             this.efficiencyGraphicToolStripMenuItem.Click += new System.EventHandler(this.efficiencyGraphicToolStripMenuItem_Click);
+            // 
+            // changeRadiusToolStripMenuItem
+            // 
+            this.changeRadiusToolStripMenuItem.Name = "changeRadiusToolStripMenuItem";
+            this.changeRadiusToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.changeRadiusToolStripMenuItem.Text = "Change Radius";
+            this.changeRadiusToolStripMenuItem.Click += new System.EventHandler(this.changeRadiusToolStripMenuItem_Click);
             // 
             // figureTypeToolStripMenuItem
             // 
@@ -144,12 +198,9 @@ namespace Polygon
             this.standardToolStripMenuItem.Text = "Standard";
             this.standardToolStripMenuItem.Click += new System.EventHandler(this.AlgorithmToolStripMenuItem_Click);
             // 
-            // changeRadiusToolStripMenuItem
+            // openFileDialog1
             // 
-            this.changeRadiusToolStripMenuItem.Name = "changeRadiusToolStripMenuItem";
-            this.changeRadiusToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.changeRadiusToolStripMenuItem.Text = "Change Radius";
-            this.changeRadiusToolStripMenuItem.Click += new System.EventHandler(this.changeRadiusToolStripMenuItem_Click);
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // Polygon
             // 
@@ -160,6 +211,7 @@ namespace Polygon
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Polygon";
             this.Text = "Polygons";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Polygon_FormClosing);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form_Paint);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form_MouseMove);
@@ -187,6 +239,13 @@ namespace Polygon
         private System.Windows.Forms.ColorDialog colorDialog1;
         public System.Windows.Forms.ToolStripMenuItem changeColorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changeRadiusToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using ZedGraph;
 
@@ -15,6 +17,7 @@ namespace Polygon
         RadiusChanger radiusChanger;
         bool graph;
         Stopwatch clock;
+        bool is_saved;
 
         public Polygon()
         {
@@ -259,8 +262,7 @@ namespace Polygon
             {
                 DialogResult result = colorDialog1.ShowDialog();
                 if (result == DialogResult.OK)
-                    foreach (Shape i in shapes)
-                        i.Color = colorDialog1.Color;
+                    Shape.C = colorDialog1.Color;
                 Refresh();
             }
         }
@@ -311,7 +313,7 @@ namespace Polygon
                 clock.Reset();
             }
 
-            shapes.Clear();            
+            shapes.Clear();
 
             Form2 f2 = new Form2(listJar, listStandard);
             f2.ShowDialog();
@@ -337,6 +339,121 @@ namespace Polygon
             }
             radiusChanger.RadiusChanged += new RadiusDelegate(UpdateRadius);
             radiusChanger.Show();
+        }
+
+        private void SaveAs()
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                FileStream fs = new FileStream(saveFileDialog1.FileName, FileMode.Create, FileAccess.Write);
+                bf.Serialize(fs, shapes);
+                bf.Serialize(fs, Shape.R);
+                bf.Serialize(fs, Shape.C);
+                fs.Close();
+                is_saved = true;
+            }
+        }
+
+        private void Open()
+        {
+            if (!is_saved && shapes.Count != 0)
+            {
+                MessageBoxButtons button = MessageBoxButtons.YesNo;
+                MessageBoxIcon icon = MessageBoxIcon.Warning;
+                DialogResult result = MessageBox.Show("Save your changes in this file?", "Save or no", button, icon);
+                if (result == DialogResult.Yes)
+                {
+                    Save();
+                }
+                else if (result == DialogResult.No) { }
+                BinaryFormatter bf = new BinaryFormatter();
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    saveFileDialog1.FileName = openFileDialog1.FileName;
+                    FileStream fs = new FileStream(openFileDialog1.FileName, FileMode.Open, FileAccess.Read);
+                    shapes = (List<Shape>)bf.Deserialize(fs);
+                    //Shape.C = (Color)bf.Deserialize(fs);
+                    Shape.R = (int)bf.Deserialize(fs);
+                    Refresh();
+                    fs.Close();
+                    is_saved = true;
+                }
+            }
+        }
+        private void Save()
+        {
+            if (saveFileDialog1.FileName == "")
+            {
+                SaveAs();
+            }
+            else
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                FileStream fs = new FileStream(saveFileDialog1.FileName, FileMode.Create, FileAccess.Write);
+                bf.Serialize(fs, shapes);
+                bf.Serialize(fs, Shape.R);
+                fs.Close();
+                is_saved = true;
+            }
+        }
+
+        private void Polygon_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (shapes.Count != 0 && !is_saved)
+            {
+                MessageBoxButtons button = MessageBoxButtons.YesNoCancel;
+                MessageBoxIcon icon = MessageBoxIcon.Warning;
+                DialogResult result = MessageBox.Show("Save your changes in this file?", "Save or no", button, icon);
+                if (result == DialogResult.Yes)
+                {
+                    Save();
+                }
+                else if (result == DialogResult.No) { }
+                else
+                {
+                    e.Cancel = true;
+                    return;
+                }
+            }
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!is_saved && shapes.Count != 0)
+            {
+                MessageBoxButtons button = MessageBoxButtons.YesNo;
+                MessageBoxIcon icon = MessageBoxIcon.Warning;
+                DialogResult result = MessageBox.Show("Save your changes in this file?", "Save or no", button, icon);
+                if (result == DialogResult.Yes)
+                {
+                    Save();
+                }
+                else if (result == DialogResult.No) { }
+            }
+            shapes = new List<Shape>();
+            is_saved = false;
+        }
+
+        private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (shapes.Count != 0)
+            {
+                Save();
+            }
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Open();
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (shapes.Count != 0)
+            {
+                SaveAs();
+            }
         }
     }
 }
