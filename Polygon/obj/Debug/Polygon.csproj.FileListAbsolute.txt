@@ -106,3 +106,5 @@ C:\Users\Марина\Source\Repos\repos\Polygon\obj\Debug\Polygon.csproj.CoreCo
 C:\Users\Марина\Source\Repos\repos\Polygon\obj\Debug\Polygon.csproj.CopyComplete
 C:\Users\Марина\Source\Repos\repos\Polygon\obj\Debug\Polygon.exe
 C:\Users\Марина\Source\Repos\repos\Polygon\obj\Debug\Polygon.pdb
+C:\Users\chels\Desktop\repos\Polygon\bin\Debug\LibraryShapes.dll
+C:\Users\chels\Desktop\repos\Polygon\bin\Debug\LibraryShapes.pdb

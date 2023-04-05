@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryShapes;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -17,7 +18,7 @@ namespace Polygon
         RadiusChanger radiusChanger;
         bool graph;
         Stopwatch clock;
-        bool is_saved;
+        bool saving;
 
         public Polygon()
         {
@@ -142,6 +143,7 @@ namespace Polygon
 
         private void Form_MouseDown(object sender, MouseEventArgs e)
         {
+            saving = false;
             if (e.Button == MouseButtons.Left)
             {
                 foreach (Shape i in shapes)
@@ -348,99 +350,77 @@ namespace Polygon
             {
                 FileStream fs = new FileStream(saveFileDialog1.FileName, FileMode.Create, FileAccess.Write);
                 bf.Serialize(fs, shapes);
-                bf.Serialize(fs, Shape.R);
                 bf.Serialize(fs, Shape.C);
+                bf.Serialize(fs, Shape.R);
                 fs.Close();
-                is_saved = true;
+                saving = true;
+            }
+            else
+            {
+                DialogResult dialogSave = MessageBox.Show("Do you want to save changes to this file?", "Polygons", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (dialogSave == DialogResult.Yes) Save();
             }
         }
 
         private void Open()
         {
-            if (!is_saved && shapes.Count != 0)
+            if (shapes.Count != 0 && !saving)
             {
-                MessageBoxButtons button = MessageBoxButtons.YesNo;
-                MessageBoxIcon icon = MessageBoxIcon.Warning;
-                DialogResult result = MessageBox.Show("Save your changes in this file?", "Save or no", button, icon);
-                if (result == DialogResult.Yes)
-                {
-                    Save();
-                }
-                else if (result == DialogResult.No) { }
+                DialogResult dialogSave = MessageBox.Show("Do you want to save changes to this file?", "Polygons", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (dialogSave == DialogResult.Yes) Save();
+            }
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
                 BinaryFormatter bf = new BinaryFormatter();
-                if (openFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    saveFileDialog1.FileName = openFileDialog1.FileName;
-                    FileStream fs = new FileStream(openFileDialog1.FileName, FileMode.Open, FileAccess.Read);
-                    shapes = (List<Shape>)bf.Deserialize(fs);
-                    //Shape.C = (Color)bf.Deserialize(fs);
-                    Shape.R = (int)bf.Deserialize(fs);
-                    Refresh();
-                    fs.Close();
-                    is_saved = true;
-                }
+                FileStream fs = new FileStream(openFileDialog1.FileName, FileMode.Open, FileAccess.Read);
+                shapes = (List<Shape>)bf.Deserialize(fs);
+                Shape.C = (Color)bf.Deserialize(fs);
+                Shape.R = (int)bf.Deserialize(fs);
+                Refresh();
+                fs.Close();
+                saving = true;
             }
         }
+
         private void Save()
         {
-            if (saveFileDialog1.FileName == "")
-            {
-                SaveAs();
-            }
+            if (saveFileDialog1.FileName == "") SaveAs();
             else
             {
                 BinaryFormatter bf = new BinaryFormatter();
                 FileStream fs = new FileStream(saveFileDialog1.FileName, FileMode.Create, FileAccess.Write);
                 bf.Serialize(fs, shapes);
+                bf.Serialize(fs, Shape.C);
                 bf.Serialize(fs, Shape.R);
                 fs.Close();
-                is_saved = true;
+                saving = true;
             }
         }
 
         private void Polygon_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (shapes.Count != 0 && !is_saved)
+            if (shapes.Count != 0 && !saving)
             {
-                MessageBoxButtons button = MessageBoxButtons.YesNoCancel;
-                MessageBoxIcon icon = MessageBoxIcon.Warning;
-                DialogResult result = MessageBox.Show("Save your changes in this file?", "Save or no", button, icon);
-                if (result == DialogResult.Yes)
-                {
-                    Save();
-                }
-                else if (result == DialogResult.No) { }
-                else
-                {
-                    e.Cancel = true;
-                    return;
-                }
+                DialogResult dialogSave = MessageBox.Show("Do you want to save changes to this file?", "Polygons", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (dialogSave == DialogResult.Yes) Save();
             }
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!is_saved && shapes.Count != 0)
+            if (shapes.Count != 0 && !saving)
             {
-                MessageBoxButtons button = MessageBoxButtons.YesNo;
-                MessageBoxIcon icon = MessageBoxIcon.Warning;
-                DialogResult result = MessageBox.Show("Save your changes in this file?", "Save or no", button, icon);
-                if (result == DialogResult.Yes)
-                {
-                    Save();
-                }
-                else if (result == DialogResult.No) { }
+                DialogResult dialogSave = MessageBox.Show("Do you want to save changes to this file?", "Polygons", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (dialogSave == DialogResult.Yes) Save();
             }
             shapes = new List<Shape>();
-            is_saved = false;
+            Refresh();
+            saving = false;
         }
 
         private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (shapes.Count != 0)
-            {
-                Save();
-            }
+            Save();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -450,10 +430,7 @@ namespace Polygon
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (shapes.Count != 0)
-            {
-                SaveAs();
-            }
+            SaveAs();
         }
     }
 }
